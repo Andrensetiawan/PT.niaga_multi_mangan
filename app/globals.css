@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafaf9;
+  --foreground: #0f172a;
+  --emerald-deep: #022c22;
+  --emerald-primary: #064e3b;
+  --gold-soft: #d4af37;
+  --font-body: var(--font-jakarta, "Plus Jakarta Sans", system-ui);
+  --font-serif: var(--font-playfair, "Playfair Display", serif);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+.serif {
+  font-family: var(--font-serif);
+}
+
+.hero-gradient {
+  background: linear-gradient(
+      to bottom,
+      rgba(2, 44, 34, 0.85),
+      rgba(2, 44, 34, 0.5)
+    ),
+    url("/beras-jepang-10kg.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 640px) {
+  .hero-gradient {
+    background-position: top center;
+  }
+}
+
+.product-card {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+}
+
+.tab-btn.active {
+  background-color: var(--emerald-primary);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--emerald-primary);
+  border-radius: 10px;
+}

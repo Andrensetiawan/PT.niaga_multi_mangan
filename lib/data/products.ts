@@ -1,0 +1,170 @@
+export type ProductCategory = "rice" | "grains" | "hikaru";
+
+export interface Product {
+  id: string;
+  title: string;
+  category: ProductCategory;
+  image: string;
+  badge: string;
+  badgeColor: string;
+  description: string;
+  size: string;
+  ribbon?: string;
+}
+
+export const PRODUCT_FILTERS = [
+  { label: "All Products", value: "all" },
+  { label: "Rice Selection", value: "rice" },
+  { label: "Beans & Grains", value: "grains" },
+  { label: "Professional (Hikaru)", value: "hikaru" },
+] as const;
+
+export const PRODUCTS: Product[] = [
+  {
+    id: "kyohikari-white-2kg",
+    title: "Kyohikari Rice 2KG",
+    category: "rice",
+    image: "/beras-jepang-2kg.jpeg",
+    badge: "Premium White Rice",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kemasan 2kg ideal untuk keluarga kecil yang mengutamakan tekstur pulen dan aroma bersih.",
+    size: "2KG",
+  },
+  {
+    id: "kyohikari-white-5kg",
+    title: "Kyohikari Rice 5KG",
+    category: "rice",
+    image: "/beras-jepang-5kg.jpeg",
+    badge: "Premium White Rice",
+    badgeColor: "text-emerald-600",
+    description:
+      "Family pack untuk stok mingguan, menjaga rasa autentik masakan Jepang di rumah.",
+    size: "5KG",
+  },
+  {
+    id: "kyohikari-white-20kg",
+    title: "Kyohikari Rice 20KG",
+    category: "rice",
+    image: "/beras-jepang-20kg.jpeg",
+    badge: "Premium White Rice",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kemasan besar bagi reseller atau dapur profesional yang memerlukan standar head rice tinggi.",
+    size: "20KG",
+  },
+  {
+    id: "kyohikari-red",
+    title: "Kyohikari Red Rice",
+    category: "rice",
+    image: "/KYOHIKARI%20RED%20RICE%201KG.jpeg",
+    badge: "Specialty Healthy Rice",
+    badgeColor: "text-red-600",
+    description:
+      "Beras merah pilihan dengan serat tinggi, diproses agar tetap empuk saat dimasak dan kaya nutrisi.",
+    size: "1KG",
+  },
+  {
+    id: "kyohikari-black",
+    title: "Kyohikari Black Rice",
+    category: "rice",
+    image: "/beras-hitam-1kg.jpeg",
+    badge: "Premium Black Rice",
+    badgeColor: "text-purple-700",
+    description:
+      "Beras hitam aromatik kaya antioksidan dan anthocyanin alami untuk sajian bernutrisi tinggi.",
+    size: "1KG",
+  },
+  {
+    id: "kyohikari-mung",
+    title: "Kyohikari Mung Bean",
+    category: "grains",
+    image: "/kyohikari-kacang-hijau-500g.jpeg",
+    badge: "Premium Pulses",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kacang hijau kupas berkualitas tinggi, bersih dari kulit dan butiran pecah. Cocok untuk dessert modern.",
+    size: "500GR",
+  },
+  {
+    id: "kyohikari-merah",
+    title: "Kyohikari Kacang Merah",
+    category: "grains",
+    image: "/kyohikari-kacang-merah-500g.jpeg",
+    badge: "Premium Pulses",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kacang merah pilihan dengan ukuran seragam untuk sup dan dessert mewah.",
+    size: "500GR",
+  },
+  {
+    id: "kyohikari-jogo",
+    title: "Kyohikari Kacang Jogo",
+    category: "grains",
+    image: "/kyohikari-kacang-jogo-500g.jpeg",
+    badge: "Premium Pulses",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kidney beans berkualitas premium yang kaya nutrisi dan protein nabati.",
+    size: "500GR",
+  },
+  {
+    id: "kyohikari-peanut",
+    title: "Kyohikari Kacang Tanah",
+    category: "grains",
+    image: "/kyohikari-kacang-tanah-500g.jpeg",
+    badge: "Premium Grains",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kacang tanah kupas bersih, tidak apek, dan siap olah untuk penganan gurih maupun manis.",
+    size: "450GR",
+  },
+  {
+    id: "kyohikari-soy",
+    title: "Kyohikari Kedelai",
+    category: "grains",
+    image: "/kyohikari-kedelai-500g.jpeg",
+    badge: "Premium Grains",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kedelai kuning pilihan non-GMO untuk kualitas susu kedelai atau tahu yang gurih.",
+    size: "500GR",
+  },
+  {
+    id: "kyohikari-tolo",
+    title: "Kyohikari Kacang Tolo",
+    category: "grains",
+    image: "/kyohikari-kacang-tolo-500g.jpeg",
+    badge: "Premium Grains",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kacang tolo berkualitas ekspor, bersih dan kering optimal untuk usaha kuliner.",
+    size: "500GR",
+  },
+  {
+    id: "hikaru-10",
+    title: "Hikaru 10KG",
+    category: "hikaru",
+    image: "/beras-jepang-10kg.jpeg",
+    badge: "Resto & Hotel Line",
+    badgeColor: "text-emerald-600",
+    description:
+      "Beras spesifikasi hotel dan restoran Jepang dengan head rice tinggi untuk plating sempurna.",
+    size: "10KG",
+    ribbon: "Professional Use",
+  },
+  {
+    id: "hikaru-25",
+    title: "Hikaru 25KG",
+    category: "hikaru",
+    image: "/beras-jepang-20kg.jpeg",
+    badge: "Supply Chain Line",
+    badgeColor: "text-emerald-600",
+    description:
+      "Kemasan ekonomis untuk kebutuhan dapur besar, katering, dan jaringan industri makanan.",
+    size: "25KG",
+    ribbon: "Industrial Scale",
+  },
+];
+
+export const CONTACT_WHATSAPP = "https://wa.me/6282112561613";
