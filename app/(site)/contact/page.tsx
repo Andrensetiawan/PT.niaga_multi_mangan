@@ -116,6 +116,24 @@ export default function ContactPage() {
               </p>
             </div>
           </div>
+
+          <div className="mt-6 rounded-3xl border border-white/20 bg-white/5 p-6 backdrop-blur">
+            <p className="text-[10px] font-black uppercase tracking-[0.28em] text-emerald-300">
+              Jadwalkan Kunjungan
+            </p>
+            <p className="mt-2 text-sm text-emerald-100">
+              Denah lokasi kantor PT Niaga Multi Pangan.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-2xl border border-white/15">
+              <iframe
+                title="Denah PT Niaga Multi Pangan"
+                src="https://www.google.com/maps?q=-6.3532388,106.7653103&z=18&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-64 w-full"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

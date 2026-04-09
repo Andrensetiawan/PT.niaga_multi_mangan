@@ -7,7 +7,7 @@ const primaryImage = "/beras-jepang-5kg.jpeg";
 const secondaryImage = "/beras-hitam-1kg.jpeg";
 
 const ownerInfo = {
-  name: "RD Imawan Purnama",
+  name: "Imawan Purnama",
   birth: "Jakarta Selatan, 23 November 1980",
   status: "Menikah",
   education: "Sekolah Tinggi Ilmu Ekonomi dan Perbankan Indonesia",
@@ -346,3 +346,4 @@ export default function AboutPage() {
     </>
   );
 }
+
