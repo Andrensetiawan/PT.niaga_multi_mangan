@@ -1,0 +1,309 @@
+{
+  "cloudName": "your_cloud_name",
+  "uploadedAt": "2026-04-07T17:30:14.778Z",
+  "totalUploaded": 0,
+  "totalFailed": 75,
+  "map": {},
+  "failed": [
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\beras-hitam-1kg.jpeg",
+      "message": "Upload gagal untuk beras-hitam-1kg.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\beras-jepang-10kg.jpeg",
+      "message": "Upload gagal untuk beras-jepang-10kg.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\beras-jepang-20kg.jpeg",
+      "message": "Upload gagal untuk beras-jepang-20kg.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\beras-jepang-2kg.jpeg",
+      "message": "Upload gagal untuk beras-jepang-2kg.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\beras-jepang-5kg.jpeg",
+      "message": "Upload gagal untuk beras-jepang-5kg.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Biografi NMP.docx",
+      "message": "Upload gagal untuk Biografi NMP.docx: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\docs\\Biodata-Owner-Lumbung-Group.pdf",
+      "message": "Upload gagal untuk docs\\Biodata-Owner-Lumbung-Group.pdf: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\docs\\Company-Profile-Lumbung-Group.pdf",
+      "message": "Upload gagal untuk docs\\Company-Profile-Lumbung-Group.pdf: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\file.svg",
+      "message": "Upload gagal untuk file.svg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Foto bersama customer shigeru.jpg",
+      "message": "Upload gagal untuk Foto bersama customer shigeru.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Foto bersama customer sushi tei.jpg",
+      "message": "Upload gagal untuk Foto bersama customer sushi tei.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Foto bersama cutomer marugame.jpg",
+      "message": "Upload gagal untuk Foto bersama cutomer marugame.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Foto bersama dinas pangan.jpg",
+      "message": "Upload gagal untuk Foto bersama dinas pangan.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Foto bersama tim management.jpg",
+      "message": "Upload gagal untuk Foto bersama tim management.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\globe.svg",
+      "message": "Upload gagal untuk globe.svg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\KYOHIKARI RED RICE 1KG.jpeg",
+      "message": "Upload gagal untuk KYOHIKARI RED RICE 1KG.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\kyohikari-kacang-hijau-500g.jpeg",
+      "message": "Upload gagal untuk kyohikari-kacang-hijau-500g.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\kyohikari-kacang-jogo-500g.jpeg",
+      "message": "Upload gagal untuk kyohikari-kacang-jogo-500g.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\kyohikari-kacang-merah-500g.jpeg",
+      "message": "Upload gagal untuk kyohikari-kacang-merah-500g.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\kyohikari-kacang-tanah-500g.jpeg",
+      "message": "Upload gagal untuk kyohikari-kacang-tanah-500g.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\kyohikari-kacang-tolo-500g.jpeg",
+      "message": "Upload gagal untuk kyohikari-kacang-tolo-500g.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\kyohikari-kedelai-500g.jpeg",
+      "message": "Upload gagal untuk kyohikari-kedelai-500g.jpeg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Logo nmp.jpg",
+      "message": "Upload gagal untuk Logo nmp.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\lumbung-group-logo.png",
+      "message": "Upload gagal untuk lumbung-group-logo.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\machine-cdcs25.png",
+      "message": "Upload gagal untuk machine-cdcs25.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\machine-color-sorter-1.png",
+      "message": "Upload gagal untuk machine-color-sorter-1.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\machine-color-sorter.png",
+      "message": "Upload gagal untuk machine-color-sorter.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\mesin shifter .png",
+      "message": "Upload gagal untuk mesin shifter .png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\next.svg",
+      "message": "Upload gagal untuk next.svg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\owner.jpg",
+      "message": "Upload gagal untuk owner.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\padi.jpg",
+      "message": "Upload gagal untuk padi.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\bilka.png",
+      "message": "Upload gagal untuk partners\\bilka.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\brastagi.png",
+      "message": "Upload gagal untuk partners\\brastagi.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\capital-fruit.jpg",
+      "message": "Upload gagal untuk partners\\capital-fruit.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\daily-foodhall.png",
+      "message": "Upload gagal untuk partners\\daily-foodhall.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\diamond.png",
+      "message": "Upload gagal untuk partners\\diamond.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\duta-buah.png",
+      "message": "Upload gagal untuk partners\\duta-buah.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\food-max.png",
+      "message": "Upload gagal untuk partners\\food-max.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\freshko.png",
+      "message": "Upload gagal untuk partners\\freshko.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\fukaya.jpg",
+      "message": "Upload gagal untuk partners\\fukaya.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\gelael.png",
+      "message": "Upload gagal untuk partners\\gelael.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\gion.jpg",
+      "message": "Upload gagal untuk partners\\gion.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\grand-lucky.png",
+      "message": "Upload gagal untuk partners\\grand-lucky.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\hari-hari.png",
+      "message": "Upload gagal untuk partners\\hari-hari.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\hero.jpg",
+      "message": "Upload gagal untuk partners\\hero.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\ichiban-sushi.png",
+      "message": "Upload gagal untuk partners\\ichiban-sushi.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\jakarta-arita.png",
+      "message": "Upload gagal untuk partners\\jakarta-arita.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\karubi-maru.png",
+      "message": "Upload gagal untuk partners\\karubi-maru.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\market-city.png",
+      "message": "Upload gagal untuk partners\\market-city.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\marugame-udon.jpg",
+      "message": "Upload gagal untuk partners\\marugame-udon.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\mu-gung-hwa.png",
+      "message": "Upload gagal untuk partners\\mu-gung-hwa.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\mujigae.png",
+      "message": "Upload gagal untuk partners\\mujigae.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\nakajima-suisan.png",
+      "message": "Upload gagal untuk partners\\nakajima-suisan.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\naminori.png",
+      "message": "Upload gagal untuk partners\\naminori.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\okinawa-sushi.png",
+      "message": "Upload gagal untuk partners\\okinawa-sushi.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\papaya.png",
+      "message": "Upload gagal untuk partners\\papaya.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\ramen-sanpachi.png",
+      "message": "Upload gagal untuk partners\\ramen-sanpachi.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\ranch-market.jpg",
+      "message": "Upload gagal untuk partners\\ranch-market.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\saga.png",
+      "message": "Upload gagal untuk partners\\saga.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\shigeru.png",
+      "message": "Upload gagal untuk partners\\shigeru.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\street-sushi.jpg",
+      "message": "Upload gagal untuk partners\\street-sushi.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\sushi-hiro.jpg",
+      "message": "Upload gagal untuk partners\\sushi-hiro.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\sushi-mashi.png",
+      "message": "Upload gagal untuk partners\\sushi-mashi.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\sushi-mentai.jpg",
+      "message": "Upload gagal untuk partners\\sushi-mentai.jpg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\sushi-tei.png",
+      "message": "Upload gagal untuk partners\\sushi-tei.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\the-food-hall.png",
+      "message": "Upload gagal untuk partners\\the-food-hall.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\torico.png",
+      "message": "Upload gagal untuk partners\\torico.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\toserba-gading.png",
+      "message": "Upload gagal untuk partners\\toserba-gading.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\partners\\total-buah.png",
+      "message": "Upload gagal untuk partners\\total-buah.png: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\tempat_nmp.webp",
+      "message": "Upload gagal untuk tempat_nmp.webp: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\vercel.svg",
+      "message": "Upload gagal untuk vercel.svg: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\videos\\README.txt",
+      "message": "Upload gagal untuk videos\\README.txt: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Vidio produk hikaru.mp4",
+      "message": "Upload gagal untuk Vidio produk hikaru.mp4: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\Vidio produk kyohikari.mp4",
+      "message": "Upload gagal untuk Vidio produk kyohikari.mp4: Unknown API key "
+    },
+    {
+      "filePath": "C:\\Users\\Queitz\\Desktop\\lumbung_grup\\public\\window.svg",
+      "message": "Upload gagal untuk window.svg: Unknown API key "
+    }
+  ]
+}

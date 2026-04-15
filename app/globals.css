@@ -1,11 +1,25 @@
 @import "tailwindcss";
 
+@theme {
+  --color-emerald-50: #eef3f1;
+  --color-emerald-100: #dde8e4;
+  --color-emerald-200: #bfd2cb;
+  --color-emerald-300: #99b7ad;
+  --color-emerald-400: #739a8d;
+  --color-emerald-500: #557d6f;
+  --color-emerald-600: #45685d;
+  --color-emerald-700: #365349;
+  --color-emerald-800: #2a413a;
+  --color-emerald-900: #20342f;
+  --color-emerald-950: #14231f;
+}
+
 :root {
-  --background: #fafaf9;
-  --foreground: #0f172a;
-  --emerald-deep: #022c22;
-  --emerald-primary: #064e3b;
-  --gold-soft: #d4af37;
+  --background: #f7f3eb;
+  --foreground: #1f2a26;
+  --emerald-deep: #14231f;
+  --emerald-primary: #2a413a;
+  --gold-soft: #b99a64;
   --font-body: var(--font-jakarta, "Plus Jakarta Sans", system-ui);
   --font-serif: var(--font-playfair, "Playfair Display", serif);
 }
@@ -28,10 +42,10 @@ body {
 .hero-gradient {
   background: linear-gradient(
       to bottom,
-      rgba(2, 44, 34, 0.85),
-      rgba(2, 44, 34, 0.5)
+      rgba(20, 35, 31, 0.65),
+      rgba(32, 52, 47, 0.35)
     ),
-    url("/beras-jepang-10kg.jpeg");
+    url("/padi.png");
   background-size: cover;
   background-position: center;
 }

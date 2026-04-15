@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { FileText, MessageCircle } from "lucide-react";
 import type { Product, ProductCategory } from "../lib/data/products";
-import { CONTACT_WHATSAPP } from "../lib/data/products";
+import { buildProductInquiryLink } from "../lib/data/products";
 
 interface ProductGridProps {
   products: Product[];
@@ -69,18 +69,32 @@ export default function ProductGrid({ products, filters }: ProductGridProps) {
                 {product.title}
               </h4>
               <p className="mb-6 text-sm text-stone-500">{product.description}</p>
-              <div className="flex items-center justify-between border-t border-stone-100 pt-6">
-                <span className="text-xs font-black uppercase tracking-[0.5em] text-emerald-900">
-                  {product.size}
-                </span>
-                <Link
-                  href={CONTACT_WHATSAPP}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-900 text-white transition hover:scale-110"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                </Link>
+              
+              {/* B2B Action Buttons */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between border-t border-stone-100 pt-4">
+                  <span className="text-xs font-black uppercase tracking-[0.4em] text-emerald-900">
+                    {product.size}
+                  </span>
+                </div>
+                
+                <div className="flex gap-2">
+                  <Link
+                    href={buildProductInquiryLink(product.title)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-full bg-emerald-900 py-3 px-4 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-emerald-800"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span>Inquiry</span>
+                  </Link>
+                  <button
+                    className="flex items-center justify-center rounded-full border-2 border-emerald-900 bg-white px-4 py-3 text-emerald-900 transition hover:bg-emerald-50"
+                    title="Request Spec Sheet"
+                  >
+                    <FileText className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
             </div>
           </article>

@@ -57,7 +57,7 @@ export const PRODUCTS: Product[] = [
     id: "kyohikari-red",
     title: "Kyohikari Red Rice",
     category: "rice",
-    image: "/KYOHIKARI%20RED%20RICE%201KG.jpeg",
+    image: "/kyohikari-red-rice-1kg.jpeg",
     badge: "Specialty Healthy Rice",
     badgeColor: "text-red-600",
     description:
@@ -167,4 +167,9 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-export const CONTACT_WHATSAPP = "https://wa.me/6282112561613";
+export function buildProductInquiryLink(productName = "[Nama Produk]"): string {
+  const message = `Halo Admin! \u{1F44B}\u{1F3FB}\n\nSaya tertarik untuk membeli produk ${productName}. Bolehkah dibantu untuk proses pemesanannya?`;
+  return `https://wa.me/6285811848112?text=${encodeURIComponent(message)}`;
+}
+
+export const CONTACT_WHATSAPP = buildProductInquiryLink();

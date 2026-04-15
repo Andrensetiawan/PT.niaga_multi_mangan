@@ -6,13 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cloudinary:migrate-public": "node scripts/sync-public-to-cloudinary.mjs"
   },
   "dependencies": {
-    "next": "16.1.6",
+    "lucide-react": "^0.469.0",
+    "next": "^16.2.2",
     "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "lucide-react": "^0.469.0"
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

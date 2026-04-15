@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { partners } from "../lib/data/partners";
+import { getCmsData } from "../lib/cms-store";
 
-export default function PartnersSection() {
+export default async function PartnersSection() {
+  const { partners } = await getCmsData();
+
   return (
     <section className="bg-stone-100 py-20">
       <div className="mx-auto max-w-7xl px-6">
@@ -13,7 +15,7 @@ export default function PartnersSection() {
             Dipercaya oleh Mitra Kuliner Terbaik
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-stone-500">
-            Brand Horeca nasional hingga jaringan retail spesialis menunjuk Lumbung Group sebagai penyedia beras Japonica dan palawija andalan untuk menjaga konsistensi rasa.
+            Brand Horeca nasional hingga jaringan retail spesialis menunjuk NMP sebagai penyedia beras Japonica dan palawija andalan untuk menjaga konsistensi rasa.
           </p>
         </div>
 
