@@ -4,46 +4,71 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSiteLocale } from "./useSiteLocale";
 
-const testimonials = [
-  {
-    quote:
-      "Kyohikari memberi konsistensi tekstur yang kami butuhkan untuk plating omakase. Tim NMP juga sigap mengamankan stok saat high season.",
-    name: "Chef Hiro",
-    role: "Kepala Chef, Sushi Hiro",
-    avatar: "/partners/sushi-hiro.jpg",
-  },
-  {
-    quote:
-      "Distribusi Hikaru untuk jaringan ramen kami selalu tepat waktu. Mereka terbuka memberikan data lab sehingga QC internal berjalan cepat.",
-    name: "Kenji Watanabe",
-    role: "Koordinator Supply Chain, Ramen Sanpachi",
-    avatar: "/partners/ramen-sanpachi.png",
-  },
-  {
-    quote:
-      "Beras merah Kyohikari menjadi unggulan di rak premium kami. Edukasi produk dari tim NMP membuat sales naik signifikan.",
-    name: "Dewi Astari",
-    role: "Manajer Kategori, Ranch Market",
-    avatar: "/partners/ranch-market.jpg",
-  },
-];
+const testimonials = {
+  id: [
+    {
+      quote:
+        "Kyohikari memberi konsistensi tekstur yang kami butuhkan untuk plating omakase. Tim NMP juga sigap mengamankan stok saat high season.",
+      name: "Chef Hiro",
+      role: "Kepala Chef, Sushi Hiro",
+      avatar: "/partners/sushi-hiro.jpg",
+    },
+    {
+      quote:
+        "Distribusi Hikaru untuk jaringan ramen kami selalu tepat waktu. Mereka terbuka memberikan data lab sehingga QC internal berjalan cepat.",
+      name: "Kenji Watanabe",
+      role: "Koordinator Supply Chain, Ramen Sanpachi",
+      avatar: "/partners/ramen-sanpachi.png",
+    },
+    {
+      quote:
+        "Beras merah Kyohikari menjadi unggulan di rak premium kami. Edukasi produk dari tim NMP membuat penjualan naik signifikan.",
+      name: "Dewi Astari",
+      role: "Manajer Kategori, Ranch Market",
+      avatar: "/partners/ranch-market.jpg",
+    },
+  ],
+  en: [
+    {
+      quote:
+        "Kyohikari gives us the texture consistency we need for omakase plating. The NMP team is also quick to secure stock during high season.",
+      name: "Chef Hiro",
+      role: "Head Chef, Sushi Hiro",
+      avatar: "/partners/sushi-hiro.jpg",
+    },
+    {
+      quote:
+        "Hikaru distribution for our ramen chain is always on time. They openly share lab data, which keeps our internal QC moving fast.",
+      name: "Kenji Watanabe",
+      role: "Supply Chain Coordinator, Ramen Sanpachi",
+      avatar: "/partners/ramen-sanpachi.png",
+    },
+    {
+      quote:
+        "Kyohikari red rice became a premium shelf standout for us. Product education from the NMP team significantly increased sales.",
+      name: "Dewi Astari",
+      role: "Category Manager, Ranch Market",
+      avatar: "/partners/ranch-market.jpg",
+    },
+  ],
+} as const;
 
 const facilityShots = [
-  "/gallery/activities/customer-shigeru.jpg",
-  "/gallery/activities/customer-sushi-tei.jpg",
-  "/gallery/activities/customer-marugame.jpg",
-  "/gallery/activities/foto-bersama-dinas-pangan.jpg",
+  "/gallery/customer-warehouse-visit/customer-shigeru.jpg",
+  "/gallery/customer-warehouse-visit/customer-sushi-tei.jpg",
+  "/gallery/customer-warehouse-visit/customer-marugame.jpg",
+  "/gallery/customer-warehouse-visit/foto-bersama-dinas-pangan.jpg",
   "/gallery/activities/foto-bersama-tim-management.jpg",
 ];
 
 const copy = {
   id: {
-    badge: "Testimonial Mitra Horeca",
+    badge: "Testimoni Mitra Horeca",
     imageAlt: "Foto bersama customer NMP",
   },
   en: {
-    badge: "Horeca Partner Testimonial",
-    imageAlt: "NMP customer gathering photo",
+    badge: "Horeca Partner Testimonials",
+    imageAlt: "Photo with NMP customers",
   },
 } as const;
 
@@ -51,15 +76,21 @@ export default function TestimonialsCarousel() {
   const [index, setIndex] = useState(0);
   const { locale } = useSiteLocale();
   const t = copy[locale];
+  const localizedTestimonials = testimonials[locale];
+  const testimonialCount = localizedTestimonials.length;
+
+  useEffect(() => {
+    setIndex(0);
+  }, [locale]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % testimonials.length);
+      setIndex((prev) => (prev + 1) % testimonialCount);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [testimonialCount]);
 
-  const activeTestimonial = testimonials[index];
+  const activeTestimonial = localizedTestimonials[index];
 
   return (
     <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -80,14 +111,14 @@ export default function TestimonialsCarousel() {
           </div>
         </div>
         <div className="mt-10 flex gap-2">
-          {testimonials.map((_, idx) => (
+          {localizedTestimonials.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setIndex(idx)}
               className={`h-2 w-8 rounded-full transition ${
                 idx === index ? "bg-emerald-900" : "bg-emerald-100"
               }`}
-              aria-label={`Tampilkan testimoni ${idx + 1}`}
+              aria-label={locale === "id" ? `Tampilkan testimoni ${idx + 1}` : `Show testimonial ${idx + 1}`}
             />
           ))}
         </div>

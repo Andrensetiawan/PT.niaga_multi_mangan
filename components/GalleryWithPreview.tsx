@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useSiteLocale } from "./useSiteLocale";
 
 type GalleryCategory = {
   id: string;
@@ -19,6 +20,7 @@ type Props = {
 
 export default function GalleryWithPreview({ categories }: Props) {
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+  const { locale } = useSiteLocale();
 
   return (
     <>
@@ -32,14 +34,20 @@ export default function GalleryWithPreview({ categories }: Props) {
               <p className="text-stone-600">{category.description}</p>
             </div>
 
-            <div className={`grid gap-6 ${category.images.length === 1 ? 'justify-center' : 'sm:grid-cols-2 lg:grid-cols-4'}`}>
+            <div
+              className={`grid gap-6 ${
+                category.images.length === 1
+                  ? "grid-cols-1 justify-items-center"
+                  : "sm:grid-cols-2 lg:grid-cols-4"
+              }`}
+            >
               {category.images.map((image, index) => (
                 <button
                   key={`${category.id}-${index}`}
                   type="button"
                   onClick={() => setSelectedImage(image)}
-                  className={`group relative overflow-hidden rounded-2xl bg-stone-100 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${category.images.length === 1 ? 'max-w-2xl w-full' : ''}`}
-                  aria-label={`Buka preview ${image.alt}`}
+                  className={`group relative overflow-hidden rounded-2xl bg-stone-100 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${category.images.length === 1 ? "w-full max-w-2xl" : ""}`}
+                  aria-label={locale === "id" ? `Buka pratinjau ${image.alt}` : `Open preview ${image.alt}`}
                 >
                   <div className="relative aspect-[4/3]">
                     <Image
@@ -73,7 +81,7 @@ export default function GalleryWithPreview({ categories }: Props) {
               onClick={() => setSelectedImage(null)}
               className="absolute -top-12 right-0 rounded-full bg-white px-4 py-2 text-sm font-semibold text-stone-800"
             >
-              Tutup
+              {locale === "id" ? "Tutup" : "Close"}
             </button>
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-black">
               <Image

@@ -3,79 +3,40 @@
 import Image from "next/image";
 import { useSiteLocale } from "./useSiteLocale";
 import type { Partner } from "../lib/data/partners";
+import type { PartnersPageContent } from "../lib/data/partners-page";
+import { resolveLocalizedText } from "../lib/localized";
 
 type Props = {
   partners: Partner[];
+  content: PartnersPageContent;
 };
 
-const copy = {
-  id: {
-    heroBadge: "Kemitraan Strategis",
-    heroTitle: "Mitra Kami di Seluruh Indonesia",
-    heroDesc:
-      "Dipercaya oleh restoran premium, hotel bintang lima, retailer modern, dan distributor profesional di lebih dari 20 provinsi. Bersama menciptakan pengalaman kuliner berkualitas ekspor.",
-    statPartners: "Mitra Utama",
-    statProvince: "Provinsi",
-    statSatisfaction: "Kepuasan",
-    statSupport: "Support",
-    sectionTitle: "Jaringan Mitra Terpercaya",
-    sectionDesc:
-      "Mitra kami mencakup berbagai segmen industri dari hospitality premium hingga retail modern yang semuanya berkomitmen pada kualitas terbaik.",
-    voiceBadge: "Client Voice",
-    voiceTitle: "Apa Kata Mitra Kami",
-    voiceDesc: "Testimoni langsung dari procurement managers dan head chefs yang telah bermitra dengan NMP.",
-    benefitsTitle: "Mengapa Bergabung dengan NMP?",
-    benefitsDesc: "Kami menawarkan lebih dari sekadar produk - kami adalah partner dalam kesuksesan Anda.",
-    ctaTitle: "Ingin Menjadi Mitra NMP?",
-    ctaDesc: "Hubungi tim partnership kami untuk diskusi peluang kolaborasi yang saling menguntungkan.",
-    ctaButton: "Hubungi Kami via WhatsApp",
-  },
-  en: {
-    heroBadge: "Strategic Partnership",
-    heroTitle: "Our Partners Across Indonesia",
-    heroDesc:
-      "Trusted by premium restaurants, five-star hotels, modern retailers, and professional distributors in more than 20 provinces.",
-    statPartners: "Key Partners",
-    statProvince: "Provinces",
-    statSatisfaction: "Satisfaction",
-    statSupport: "Support",
-    sectionTitle: "Trusted Partner Network",
-    sectionDesc:
-      "Our partners span industries from premium hospitality to modern retail, all committed to top quality.",
-    voiceBadge: "Client Voice",
-    voiceTitle: "What Our Partners Say",
-    voiceDesc: "Direct testimonials from procurement managers and head chefs partnering with NMP.",
-    benefitsTitle: "Why Join NMP?",
-    benefitsDesc: "We offer more than products - we are your growth partner.",
-    ctaTitle: "Interested in Partnering with NMP?",
-    ctaDesc: "Contact our partnership team to discuss mutually beneficial collaboration opportunities.",
-    ctaButton: "Contact Us via WhatsApp",
-  },
-} as const;
-
-export default function PartnersPageClient({ partners }: Props) {
+export default function PartnersPageClient({ partners, content }: Props) {
   const { locale } = useSiteLocale();
-  const t = copy[locale];
 
   return (
     <div className="min-h-screen bg-white">
       <section className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 py-24 text-white sm:py-32">
         <div className="mx-auto max-w-7xl px-6 text-center sm:px-12">
           <div className="mb-6 inline-flex items-center justify-center rounded-full border border-white/40 px-5 py-2 text-[9px] font-extrabold uppercase tracking-[0.25em] backdrop-blur sm:text-[10px] sm:tracking-[0.35em]">
-            {t.heroBadge}
+            {resolveLocalizedText(content.heroBadge, locale)}
           </div>
-          <h1 className="serif mb-6 text-4xl font-black leading-tight sm:text-5xl md:text-6xl">{t.heroTitle}</h1>
-          <p className="mx-auto max-w-2xl text-base text-emerald-100/90 sm:text-lg">{t.heroDesc}</p>
+          <h1 className="serif mb-6 text-4xl font-black leading-tight sm:text-5xl md:text-6xl">
+            {resolveLocalizedText(content.heroTitle, locale)}
+          </h1>
+          <p className="mx-auto max-w-2xl text-base text-emerald-100/90 sm:text-lg">
+            {resolveLocalizedText(content.heroDesc, locale)}
+          </p>
         </div>
       </section>
 
       <section className="bg-emerald-50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6 sm:px-12">
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 md:gap-8">
-            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">19+</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{t.statPartners}</p></div>
-            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">20+</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{t.statProvince}</p></div>
-            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">98%</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{t.statSatisfaction}</p></div>
-            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">24/7</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{t.statSupport}</p></div>
+            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">19+</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{resolveLocalizedText(content.statPartners, locale)}</p></div>
+            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">38+</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{resolveLocalizedText(content.statProvince, locale)}</p></div>
+            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">98%</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{resolveLocalizedText(content.statSatisfaction, locale)}</p></div>
+            <div className="rounded-2xl border border-emerald-200 bg-white p-6 text-center sm:p-8"><p className="text-3xl font-black text-emerald-950 sm:text-4xl">24/7</p><p className="mt-2 text-xs font-semibold uppercase tracking-widest text-emerald-700">{resolveLocalizedText(content.statSupport, locale)}</p></div>
           </div>
         </div>
       </section>
@@ -83,8 +44,12 @@ export default function PartnersPageClient({ partners }: Props) {
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6 sm:px-12">
           <div className="mb-16 text-center">
-            <h2 className="serif mb-4 text-3xl font-bold text-emerald-950 sm:text-4xl">{t.sectionTitle}</h2>
-            <p className="mx-auto max-w-2xl text-stone-600">{t.sectionDesc}</p>
+            <h2 className="serif mb-4 text-3xl font-bold text-emerald-950 sm:text-4xl">
+              {resolveLocalizedText(content.sectionTitle, locale)}
+            </h2>
+            <p className="mx-auto max-w-2xl text-stone-600">
+              {resolveLocalizedText(content.sectionDesc, locale)}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:gap-6">
@@ -103,9 +68,24 @@ export default function PartnersPageClient({ partners }: Props) {
 
       <section className="bg-gradient-to-br from-white to-stone-50 py-20 sm:py-28">
         <div className="mx-auto max-w-3xl px-6 text-center sm:px-12">
-          <h2 className="serif mb-6 text-3xl font-bold text-emerald-950 sm:text-4xl">{t.ctaTitle}</h2>
-          <p className="mb-8 text-lg text-stone-600">{t.ctaDesc}</p>
-          <a href="https://wa.me/6285811848112" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full bg-emerald-950 px-10 py-4 text-sm font-bold uppercase tracking-[0.2em] text-white shadow-lg transition-all duration-300 hover:bg-emerald-900 active:scale-95">{t.ctaButton}</a>
+          <h2 className="serif mb-6 text-3xl font-bold text-emerald-950 sm:text-4xl">
+            {resolveLocalizedText(content.ctaTitle, locale)}
+          </h2>
+          <p className="mb-8 text-lg text-stone-600">
+            {resolveLocalizedText(content.ctaDesc, locale)}
+          </p>
+          <a
+            href={
+              locale === "id"
+                ? "https://wa.me/6285811848112?text=Halo%20NMP%2C%20saya%20ingin%20diskusi%20kemitraan"
+                : "https://wa.me/6285811848112?text=Hello%20NMP%2C%20I%20would%20like%20to%20discuss%20partnership"
+            }
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center rounded-full bg-emerald-950 px-10 py-4 text-sm font-bold uppercase tracking-[0.2em] text-white shadow-lg transition-all duration-300 hover:bg-emerald-900 active:scale-95"
+          >
+            {resolveLocalizedText(content.ctaButton, locale)}
+          </a>
         </div>
       </section>
     </div>

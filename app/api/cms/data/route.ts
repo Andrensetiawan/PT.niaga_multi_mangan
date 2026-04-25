@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { type Product } from "../../../../lib/data/products";
 import { type Partner } from "../../../../lib/data/partners";
 import { type HomePageContent } from "../../../../lib/data/home";
+import { type AboutPageContent } from "../../../../lib/data/about";
+import { type PartnersPageContent } from "../../../../lib/data/partners-page";
 import { CMS_COOKIE_NAME, isCmsCookieValid } from "../../../../lib/cms-auth";
 import { getCmsData, saveCmsData } from "../../../../lib/cms-store";
 
@@ -9,6 +11,8 @@ interface CmsUpdateBody {
   products?: Product[];
   partners?: Partner[];
   home?: HomePageContent;
+  about?: AboutPageContent;
+  partnersPage?: PartnersPageContent;
 }
 
 function isAuthorized(request: Request): boolean {
@@ -42,9 +46,9 @@ export async function PUT(request: Request) {
 
   const body = (await request.json()) as CmsUpdateBody;
 
-  if (!Array.isArray(body.products) || !Array.isArray(body.partners) || !body.home) {
+  if (!Array.isArray(body.products) || !Array.isArray(body.partners) || !body.home || !body.about || !body.partnersPage) {
     return NextResponse.json(
-      { message: "Format data tidak valid. products, partners, dan home wajib diisi." },
+      { message: "Format data tidak valid. products, partners, home, about, dan partnersPage wajib diisi." },
       { status: 400 },
     );
   }
@@ -53,6 +57,8 @@ export async function PUT(request: Request) {
     products: body.products,
     partners: body.partners,
     home: body.home,
+    about: body.about,
+    partnersPage: body.partnersPage,
   });
 
   return NextResponse.json({ message: "Data CMS berhasil disimpan.", data: nextData });

@@ -3,13 +3,13 @@ import PartnersPageClient from "../../../components/PartnersPageClient";
 import { getCmsData } from "../../../lib/cms-store";
 
 export const metadata: Metadata = {
-  title: "Mitra Kami | NMP - Niaga Multi Pangan",
+  title: "Our Partners | NMP - Niaga Multi Pangan",
   description:
-    "Jaringan mitra strategis NMP di seluruh Indonesia meliputi restoran premium, retail, hotel, dan distributor profesional yang mempercayai Kyohikari dan Hikaru.",
+    "NMP's strategic partner network across Indonesia includes premium restaurants, retail, hotels, and professional distributors that trust Kyohikari and Hikaru.",
 };
 
 export default async function PartnersPage() {
-  const { partners } = await getCmsData();
+  const { partners, partnersPage } = await getCmsData();
 
-  return <PartnersPageClient partners={partners} />;
+  return <PartnersPageClient partners={partners} content={partnersPage} />;
 }

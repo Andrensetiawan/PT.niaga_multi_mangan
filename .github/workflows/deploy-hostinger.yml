@@ -1,0 +1,46 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          script_stop: true
+          script: |
+            set -e
+
+            export NVM_DIR="$HOME/.nvm"
+            if [ -s "$NVM_DIR/nvm.sh" ]; then
+              . "$NVM_DIR/nvm.sh"
+              nvm use 20 || true
+            fi
+
+            cd "${{ secrets.HOSTINGER_APP_DIR }}"
+
+            git pull origin main --ff-only
+            npm ci
+            npm run build
+
+            if pm2 describe niaga-multi-pangan > /dev/null 2>&1; then
+              pm2 restart niaga-multi-pangan
+            else
+              pm2 start npm --name niaga-multi-pangan -- start
+            fi
+
+            pm2 save

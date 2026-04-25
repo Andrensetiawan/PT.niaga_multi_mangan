@@ -1,21 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Partner } from "../lib/data/partners";
 import type { Product, ProductCategory } from "../lib/data/products";
 import type { HomePageContent } from "../lib/data/home";
+import type { AboutPageContent } from "../lib/data/about";
+import type { PartnersPageContent } from "../lib/data/partners-page";
 import CloudinaryUploadButton from "./CloudinaryUploadButton";
 
 interface CmsEditorProps {
   initialProducts: Product[];
   initialPartners: Partner[];
   initialHome: HomePageContent;
+  initialAbout: AboutPageContent;
+  initialPartnersPage: PartnersPageContent;
   updatedAt: string;
 }
 
-type CmsTab = "home" | "products" | "partners";
+type CmsTab = "home" | "about" | "products" | "partners";
 type HomeEditorTab = "hero" | "stats" | "creds" | "quality";
+type VideoLayoutMode = "alternate" | "2" | "3" | "4";
 
 const categoryOptions: Array<{ label: string; value: ProductCategory }> = [
   { label: "🌾 Beras Biasa", value: "rice" },
@@ -57,7 +62,7 @@ function createUniqueId(base: string, existingIds: string[]): string {
 }
 
 function createProductDraft(seed?: Partial<Product>): Product {
-  const title = seed?.title ?? "Barang Baru Yuk!";
+  const title = seed?.title ?? "New Product";
   return {
     id: seed?.id ?? slugify(title),
     title,
@@ -67,7 +72,7 @@ function createProductDraft(seed?: Partial<Product>): Product {
     badgeColor: seed?.badgeColor ?? "text-emerald-600",
     description:
       seed?.description ??
-      "Tuliskan cerita singkat tentang barang ini. Apa yang bikin barang ini enak dan bagus?",
+      "Write a short story about this item. What makes it unique and high quality?",
     size: seed?.size ?? "1 KG",
     ribbon: seed?.ribbon,
   };
@@ -81,10 +86,45 @@ function createPartnerDraft(seed?: Partial<Partner>): Partner {
   };
 }
 
+function reorderItems<T>(items: T[], fromIndex: number, targetIndex: number): T[] {
+  if (fromIndex === targetIndex) {
+    return items;
+  }
+
+  const next = [...items];
+  const [movedItem] = next.splice(fromIndex, 1);
+  const insertionIndex = fromIndex < targetIndex ? targetIndex - 1 : targetIndex;
+
+  next.splice(insertionIndex, 0, movedItem);
+  return next;
+}
+
+function updateSelectedIndexAfterMove(selectedIndex: number, fromIndex: number, targetIndex: number): number {
+  if (selectedIndex === fromIndex) {
+    return fromIndex < targetIndex ? targetIndex - 1 : targetIndex;
+  }
+
+  if (fromIndex < targetIndex) {
+    if (selectedIndex > fromIndex && selectedIndex < targetIndex) {
+      return selectedIndex - 1;
+    }
+
+    return selectedIndex;
+  }
+
+  if (selectedIndex >= targetIndex && selectedIndex < fromIndex) {
+    return selectedIndex + 1;
+  }
+
+  return selectedIndex;
+}
+
 export default function CmsEditor({
   initialProducts,
   initialPartners,
   initialHome,
+  initialAbout,
+  initialPartnersPage,
   updatedAt,
 }: CmsEditorProps) {
   const router = useRouter();
@@ -93,10 +133,15 @@ export default function CmsEditor({
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [partners, setPartners] = useState<Partner[]>(initialPartners);
   const [home, setHome] = useState<HomePageContent>(initialHome);
+  const [about, setAbout] = useState<AboutPageContent>(initialAbout);
+  const [partnersPage, setPartnersPage] = useState<PartnersPageContent>(initialPartnersPage);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const [selectedPartnerIndex, setSelectedPartnerIndex] = useState(0);
-  const [status, setStatus] = useState("✨ Semuanya aman! Belum ada yang diubah.");
+  const [status, setStatus] = useState("✨ All good! Nothing has been changed yet.");
   const [saving, setSaving] = useState(false);
+  const [draggedSelectorIndex, setDraggedSelectorIndex] = useState<number | null>(null);
+  const [draggedSelectorTab, setDraggedSelectorTab] = useState<CmsTab | null>(null);
+  const selectorClickSuppression = useRef(false);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -120,6 +165,10 @@ export default function CmsEditor({
 
   function updateHomeQuality(key: keyof HomePageContent["quality"], value: string) {
     setHome((current) => ({ ...current, quality: { ...current.quality, [key]: value } }));
+  }
+
+  function updateHomeVideoLayout(value: VideoLayoutMode) {
+    setHome((current) => ({ ...current, quality: { ...current.quality, videoLayout: value } }));
   }
 
   function updateHomeVideo(index: number, value: string) {
@@ -197,6 +246,41 @@ export default function CmsEditor({
     }));
   }
 
+  function updateAboutField(key: keyof AboutPageContent, locale: "id" | "en", value: string) {
+    setAbout((current) => {
+      const nextValue = current[key];
+      if (Array.isArray(nextValue)) {
+        return current;
+      }
+
+      return {
+        ...current,
+        [key]: { ...nextValue, [locale]: value },
+      };
+    });
+  }
+
+  function updateAboutArrayField(
+    key: "paragraphs" | "missionList",
+    index: number,
+    locale: "id" | "en",
+    value: string,
+  ) {
+    setAbout((current) => ({
+      ...current,
+      [key]: current[key].map((item, itemIndex) =>
+        itemIndex === index ? { ...item, [locale]: value } : item,
+      ) as typeof current[typeof key],
+    }));
+  }
+
+  function updatePartnersPageField(key: keyof PartnersPageContent, locale: "id" | "en", value: string) {
+    setPartnersPage((current) => ({
+      ...current,
+      [key]: { ...current[key], [locale]: value },
+    }));
+  }
+
   function updateProduct(index: number, patch: Partial<Product>) {
     setSelectedProductIndex(index);
     setProducts((current) =>
@@ -209,6 +293,120 @@ export default function CmsEditor({
     setPartners((current) =>
       current.map((item, itemIndex) => (itemIndex === index ? { ...item, ...patch } : item)),
     );
+  }
+
+  function handleSelectorClickGuard() {
+    if (selectorClickSuppression.current) {
+      selectorClickSuppression.current = false;
+      return true;
+    }
+
+    return false;
+  }
+
+  function handleSelectProduct(index: number) {
+    if (handleSelectorClickGuard()) {
+      return;
+    }
+
+    setSelectedProductIndex(index);
+  }
+
+  function handleSelectPartner(index: number) {
+    if (handleSelectorClickGuard()) {
+      return;
+    }
+
+    setSelectedPartnerIndex(index);
+  }
+
+  function startSelectorDrag(tabName: CmsTab, index: number, event: React.DragEvent<HTMLButtonElement>) {
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", `${tabName}:${index}`);
+    setDraggedSelectorIndex(index);
+    setDraggedSelectorTab(tabName);
+    selectorClickSuppression.current = true;
+  }
+
+  function endSelectorDrag() {
+    setDraggedSelectorIndex(null);
+    setDraggedSelectorTab(null);
+    window.setTimeout(() => {
+      selectorClickSuppression.current = false;
+    }, 0);
+  }
+
+  function reorderSelectedProduct(fromIndex: number, targetIndex: number) {
+    setProducts((current) => reorderItems(current, fromIndex, targetIndex));
+    setSelectedProductIndex((current) => updateSelectedIndexAfterMove(current, fromIndex, targetIndex));
+  }
+
+  function reorderSelectedPartner(fromIndex: number, targetIndex: number) {
+    setPartners((current) => reorderItems(current, fromIndex, targetIndex));
+    setSelectedPartnerIndex((current) => updateSelectedIndexAfterMove(current, fromIndex, targetIndex));
+  }
+
+  function handleSelectorDrop(tabName: CmsTab, targetIndex: number) {
+    if (draggedSelectorIndex === null || draggedSelectorTab !== tabName) {
+      return;
+    }
+
+    if (tabName === "products") {
+      reorderSelectedProduct(draggedSelectorIndex, targetIndex);
+    } else if (tabName === "partners") {
+      reorderSelectedPartner(draggedSelectorIndex, targetIndex);
+    }
+
+    endSelectorDrag();
+  }
+
+  function handleSelectorDropToEnd(tabName: CmsTab) {
+    if (draggedSelectorIndex === null || draggedSelectorTab !== tabName) {
+      return;
+    }
+
+    if (tabName === "products") {
+      reorderSelectedProduct(draggedSelectorIndex, products.length);
+    } else if (tabName === "partners") {
+      reorderSelectedPartner(draggedSelectorIndex, partners.length);
+    }
+
+    endSelectorDrag();
+  }
+
+  function handleSelectorScroll(event: React.UIEvent<HTMLDivElement>) {
+    const container = event.currentTarget;
+    const items = Array.from(container.querySelectorAll<HTMLElement>("[data-selector-index]"));
+
+    if (items.length === 0) {
+      return;
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    const containerCenter = containerRect.left + containerRect.width / 2;
+
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    items.forEach((item) => {
+      const itemIndex = Number(item.dataset.selectorIndex ?? "0");
+      const itemRect = item.getBoundingClientRect();
+      const itemCenter = itemRect.left + itemRect.width / 2;
+      const distance = Math.abs(itemCenter - containerCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = itemIndex;
+      }
+    });
+
+    if (tab === "products" && closestIndex !== selectedProductIndex) {
+      setSelectedProductIndex(closestIndex);
+    }
+
+    if (tab === "partners" && closestIndex !== selectedPartnerIndex) {
+      setSelectedPartnerIndex(closestIndex);
+    }
   }
 
   function duplicateProduct(index: number) {
@@ -235,8 +433,8 @@ export default function CmsEditor({
 
   function addProduct() {
     setProducts((current) => {
-      const nextId = createUniqueId("barang-baru", current.map((product) => product.id));
-      const next = [...current, createProductDraft({ id: nextId, title: "Barang Baru Kita" })];
+      const nextId = createUniqueId("new-product", current.map((product) => product.id));
+      const next = [...current, createProductDraft({ id: nextId, title: "Our New Product" })];
       setSelectedProductIndex(next.length - 1);
       return next;
     });
@@ -264,7 +462,7 @@ export default function CmsEditor({
   }
 
   async function handleSave() {
-    setStatus("⏳ Sebentar ya, sedang dikirim ke website...");
+    setStatus("⏳ Please wait, sending to the website...");
     setSaving(true);
 
     try {
@@ -275,20 +473,22 @@ export default function CmsEditor({
           products,
           partners,
           home,
+          about,
+          partnersPage,
         }),
       });
 
       const payload = (await response.json()) as { message?: string };
 
       if (!response.ok) {
-        setStatus(`❌ Yah gagal: ${payload.message ?? "Ada yang salah nih."}`);
+        setStatus(`❌ Save failed: ${payload.message ?? "Something went wrong."}`);
         return;
       }
 
-      setStatus("🎉 Yey! Perubahan sudah berhasil tampil di website!");
+      setStatus("🎉 Great! Your changes are now live on the website!");
       router.refresh();
     } catch {
-      setStatus("🔌 Aduh, sepertinya internetnya lagi ngambek. Coba pencet simpan lagi ya!");
+      setStatus("🔌 Network issue detected. Please try saving again.");
     } finally {
       setSaving(false);
     }
@@ -307,21 +507,20 @@ export default function CmsEditor({
           <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
             <div>
               <p className="inline-block rounded-full bg-yellow-300 px-3 py-1 text-xs font-black uppercase tracking-widest text-emerald-900 shadow-sm">
-                🎮 Pusat Kontrol
+                🎮 Control Center
               </p>
-              <h1 className="mt-4 text-3xl font-black drop-shadow-md sm:text-5xl">Ruang Website!</h1>
+              <h1 className="mt-4 text-3xl font-black drop-shadow-md sm:text-5xl">Website Studio</h1>
               <p className="mt-3 max-w-2xl text-base font-medium leading-relaxed text-emerald-50 sm:text-lg">
-                Halo! 👋 Di sini kamu bisa ganti tulisan, gambar, dan barang jualan di website semudah main game.
-                Nggak perlu nulis kode sama sekali!
+                Hello! 👋 Here you can update text, images, and product listings on the website with ease.
+                No coding needed.
               </p>
             </div>
 
             <div className="rounded-2xl border-2 border-emerald-300/50 bg-black/10 p-5 text-sm text-emerald-50 backdrop-blur-sm">
-              <p className="text-xs font-bold uppercase tracking-widest text-emerald-200">💾 Terakhir Disimpan</p>
-              <p className="mt-2 text-xl font-bold">{new Date(updatedAt).toLocaleString("id-ID")}</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-emerald-200">💾 Last Saved</p>
+              <p className="mt-2 text-xl font-bold">{new Date(updatedAt).toLocaleString("en-US")}</p>
               <p className="mt-2 text-xs leading-relaxed text-emerald-100/90">
-                💡 <b>Rahasia:</b> Jangan lupa selalu pencet tombol Simpan yang paling bawah kalau sudah selesai
-                mengubah-ubah ya!
+                💡 <b>Tip:</b> Don&apos;t forget to click Save at the bottom after finishing your edits.
               </p>
             </div>
           </div>
@@ -333,7 +532,7 @@ export default function CmsEditor({
               rel="noreferrer"
               className="rounded-full border-2 border-white/50 bg-white/20 px-5 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-emerald-800"
             >
-              👀 Liat Halaman Barang
+              👀 View Products Page
             </a>
             <a
               href="/partners"
@@ -341,14 +540,14 @@ export default function CmsEditor({
               rel="noreferrer"
               className="rounded-full border-2 border-white/50 bg-white/20 px-5 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-emerald-800"
             >
-              🤝 Liat Teman Kerja Sama
+              🤝 View Partners Page
             </a>
             <button
               type="button"
               onClick={handleLogout}
               className="ml-auto rounded-full border-2 border-red-500 bg-red-400 px-5 py-3 text-sm font-bold text-white shadow-md transition hover:bg-red-500"
             >
-              🚪 Keluar (Logout)
+              🚪 Logout
             </button>
           </div>
         </section>
@@ -364,9 +563,24 @@ export default function CmsEditor({
             }`}
           >
             <p className="mb-2 text-4xl">🏠</p>
-            <p className="text-xs font-black uppercase tracking-widest opacity-70">Bagian 1</p>
-            <p className="mt-1 text-2xl font-black">Halaman Depan</p>
-            <p className="mt-2 text-sm font-medium opacity-90">Ubah kata sambutan dan cerita keren kita di beranda.</p>
+            <p className="text-xs font-black uppercase tracking-widest opacity-70">Section 1</p>
+            <p className="mt-1 text-2xl font-black">Home Page</p>
+            <p className="mt-2 text-sm font-medium opacity-90">Update the greeting and story on the home page.</p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setTab("about")}
+            className={`rounded-[2rem] p-5 text-left transition transform hover:-translate-y-1 ${
+              tab === "about"
+                ? "scale-105 border-4 border-white bg-emerald-400 text-emerald-950 shadow-xl"
+                : "border-4 border-transparent bg-white text-stone-600 shadow-md hover:bg-emerald-50"
+            }`}
+          >
+            <p className="mb-2 text-4xl">🏢</p>
+            <p className="text-xs font-black uppercase tracking-widest opacity-70">Section 2</p>
+            <p className="mt-1 text-2xl font-black">About Page</p>
+            <p className="mt-2 text-sm font-medium opacity-90">Edit the company story in both languages.</p>
           </button>
 
           <button
@@ -379,10 +593,10 @@ export default function CmsEditor({
             }`}
           >
             <p className="mb-2 text-4xl">🛍️</p>
-            <p className="text-xs font-black uppercase tracking-widest opacity-70">Bagian 2</p>
-            <p className="mt-1 text-2xl font-black">Barang Jualan</p>
+            <p className="text-xs font-black uppercase tracking-widest opacity-70">Section 3</p>
+            <p className="mt-1 text-2xl font-black">Products</p>
             <p className="mt-2 text-sm font-medium opacity-90">
-              Ada <b>{products.length} barang</b>. Mau tambah atau ubah yang mana?
+              There are <b>{products.length} products</b>. Which one do you want to add or edit?
             </p>
           </button>
 
@@ -396,10 +610,10 @@ export default function CmsEditor({
             }`}
           >
             <p className="mb-2 text-4xl">🤝</p>
-            <p className="text-xs font-black uppercase tracking-widest opacity-70">Bagian 3</p>
-            <p className="mt-1 text-2xl font-black">Teman Kerja</p>
+            <p className="text-xs font-black uppercase tracking-widest opacity-70">Section 4</p>
+            <p className="mt-1 text-2xl font-black">Partners</p>
             <p className="mt-2 text-sm font-medium opacity-90">
-              Ada <b>{partners.length} logo</b> perusahaan yang berteman dengan kita.
+              There are <b>{partners.length} partner logos</b> listed.
             </p>
           </button>
         </section>
@@ -409,17 +623,21 @@ export default function CmsEditor({
             <div>
               <h2 className="text-2xl font-black text-stone-800">
                 {tab === "home"
-                  ? "🏠 Ngatur Halaman Depan"
+                  ? "🏠 Home Page Settings"
+                  : tab === "about"
+                    ? "🏢 About Page Settings"
                   : tab === "products"
-                    ? "🛍️ Buku Daftar Barang"
-                    : "🤝 Buku Daftar Teman Kerja"}
+                    ? "🛍️ Product Directory"
+                    : "🤝 Partner Directory"}
               </h2>
               <p className="mt-2 text-base font-medium text-stone-500">
                 {tab === "home"
-                  ? "Tinggal ketik di kotak yang kamu mau, nanti otomatis terganti!"
+                  ? "Type in any field below and it updates automatically."
+                  : tab === "about"
+                    ? "Edit the company story, vision, mission, and QC copy in both languages."
                   : tab === "products"
-                    ? "Pilih barang di sebelah kiri, lalu ubah tulisannya di sebelah kanan."
-                    : "Siapa nih teman baru kita? Masukkan nama dan logonya ya."}
+                    ? "Pick a product on the left, then edit details on the right."
+                    : "Add a new partner by entering their name and logo."}
               </p>
             </div>
             <div className="flex gap-2">
@@ -429,7 +647,7 @@ export default function CmsEditor({
                   onClick={addProduct}
                   className="transform rounded-full bg-sky-500 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:scale-105 hover:bg-sky-600"
                 >
-                  ➕ Bikin Barang Baru
+                  ➕ Add New Product
                 </button>
               )}
               {tab === "partners" && (
@@ -543,7 +761,7 @@ export default function CmsEditor({
                             onClick={() => removeHomeStat(index)}
                             className="rounded-xl border-2 border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-600 transition hover:bg-red-500 hover:text-white"
                           >
-                            🗑️ Hapus
+                            🗑️ Delete
                           </button>
                         </div>
                       </div>
@@ -586,7 +804,7 @@ export default function CmsEditor({
                             </div>
                           </Field>
                           <div className="flex items-center gap-3 rounded-xl bg-purple-50 p-3">
-                            <span className="text-sm font-bold text-purple-800">Atau pilih file dari laptop:</span>
+                            <span className="text-sm font-bold text-purple-800">Or choose a file from your laptop:</span>
                             <CloudinaryUploadButton
                               label="📤 Upload Dokumen"
                               accept=".pdf,.doc,.docx,.ppt,.pptx"
@@ -599,7 +817,7 @@ export default function CmsEditor({
                             onClick={() => removeHomeCredential(index)}
                             className="w-full rounded-xl border-2 border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-600 transition hover:bg-red-500 hover:text-white"
                           >
-                            🗑️ Hapus Sertifikat Ini
+                            🗑️ Delete This Credential
                           </button>
                         </div>
                       </div>
@@ -630,6 +848,18 @@ export default function CmsEditor({
                         className="min-h-[160px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base leading-relaxed outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-400/20"
                       />
                     </Field>
+                    <Field label="🎬 Mode Tampil Video">
+                      <select
+                        value={home.quality.videoLayout}
+                        onChange={(event) => updateHomeVideoLayout(event.target.value as VideoLayoutMode)}
+                        className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-400/20"
+                      >
+                        <option value="alternate">Bergantian 1 video</option>
+                        <option value="2">Tampil 2 video</option>
+                        <option value="3">Tampil 3 video</option>
+                        <option value="4">Tampil 4 video</option>
+                      </select>
+                    </Field>
                     <div className="space-y-4 rounded-2xl border-2 border-emerald-200 bg-white p-5">
                       <p className="text-sm font-bold text-emerald-800">🎥 Link Video Keren Kita</p>
                       {home.quality.videoUrls.map((videoUrl, index) => (
@@ -655,7 +885,7 @@ export default function CmsEditor({
                               onClick={() => removeHomeVideo(index)}
                               className="rounded-xl border-2 border-red-200 bg-white px-4 py-2 text-xs font-bold text-red-600 transition hover:bg-red-500 hover:text-white"
                             >
-                              🗑️ Hapus
+                              🗑️ Delete
                             </button>
                           </div>
                         </div>
@@ -674,7 +904,7 @@ export default function CmsEditor({
 
               <aside className="flex flex-col items-center rounded-[2.5rem] border-4 border-stone-200 bg-stone-100 p-6 shadow-inner">
                 <p className="mb-4 rounded-full bg-white px-4 py-2 text-sm font-black text-stone-500 shadow-sm">
-                  📱 Kayak Gini Nanti Keliatannya di HP
+                  📱 Mobile Preview
                 </p>
                 <div className="relative mx-auto w-full max-w-[320px] overflow-hidden rounded-[2.5rem] border-[8px] border-stone-800 bg-white shadow-2xl">
                   <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-b-xl bg-stone-800" />
@@ -728,43 +958,156 @@ export default function CmsEditor({
             </div>
           )}
 
-          {tab !== "home" && (
+          {tab === "about" && (
+            <div className="mt-8 grid gap-8 xl:grid-cols-[1.3fr_0.7fr]">
+              <div className="space-y-6 rounded-[2.5rem] border-4 border-emerald-100 bg-emerald-50 p-6 sm:p-8">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Field label="About Badge - ID"><input value={about.aboutBadge.id} onChange={(event) => updateAboutField("aboutBadge", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="About Badge - EN"><input value={about.aboutBadge.en} onChange={(event) => updateAboutField("aboutBadge", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Company Name - ID"><input value={about.companyName.id} onChange={(event) => updateAboutField("companyName", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Company Name - EN"><input value={about.companyName.en} onChange={(event) => updateAboutField("companyName", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                </div>
+
+                {[0, 1, 2].map((index) => (
+                  <div key={`about-paragraph-${index}`} className="grid gap-4 md:grid-cols-2">
+                    <Field label={`Paragraph ${index + 1} - ID`}>
+                      <textarea value={about.paragraphs[index].id} onChange={(event) => updateAboutArrayField("paragraphs", index, "id", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" />
+                    </Field>
+                    <Field label={`Paragraph ${index + 1} - EN`}>
+                      <textarea value={about.paragraphs[index].en} onChange={(event) => updateAboutArrayField("paragraphs", index, "en", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" />
+                    </Field>
+                  </div>
+                ))}
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Field label="Award - ID"><input value={about.award.id} onChange={(event) => updateAboutField("award", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Award - EN"><input value={about.award.en} onChange={(event) => updateAboutField("award", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Vision Title - ID"><input value={about.visionTitle.id} onChange={(event) => updateAboutField("visionTitle", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Vision Title - EN"><input value={about.visionTitle.en} onChange={(event) => updateAboutField("visionTitle", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Vision Desc - ID"><textarea value={about.visionDesc.id} onChange={(event) => updateAboutField("visionDesc", "id", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                  <Field label="Vision Desc - EN"><textarea value={about.visionDesc.en} onChange={(event) => updateAboutField("visionDesc", "en", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                  <Field label="Mission Title - ID"><input value={about.missionTitle.id} onChange={(event) => updateAboutField("missionTitle", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Mission Title - EN"><input value={about.missionTitle.en} onChange={(event) => updateAboutField("missionTitle", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                </div>
+
+                {[0, 1, 2].map((index) => (
+                  <div key={`about-mission-${index}`} className="grid gap-4 md:grid-cols-2">
+                    <Field label={`Mission ${index + 1} - ID`}>
+                      <input value={about.missionList[index].id} onChange={(event) => updateAboutArrayField("missionList", index, "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" />
+                    </Field>
+                    <Field label={`Mission ${index + 1} - EN`}>
+                      <input value={about.missionList[index].en} onChange={(event) => updateAboutArrayField("missionList", index, "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" />
+                    </Field>
+                  </div>
+                ))}
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Field label="Machine Badge - ID"><input value={about.machineBadge.id} onChange={(event) => updateAboutField("machineBadge", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Machine Badge - EN"><input value={about.machineBadge.en} onChange={(event) => updateAboutField("machineBadge", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Machine Title - ID"><input value={about.machineTitle.id} onChange={(event) => updateAboutField("machineTitle", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Machine Title - EN"><input value={about.machineTitle.en} onChange={(event) => updateAboutField("machineTitle", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="Machine Desc - ID"><textarea value={about.machineDesc.id} onChange={(event) => updateAboutField("machineDesc", "id", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                  <Field label="Machine Desc - EN"><textarea value={about.machineDesc.en} onChange={(event) => updateAboutField("machineDesc", "en", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Field label="QC Badge - ID"><input value={about.qcBadge.id} onChange={(event) => updateAboutField("qcBadge", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="QC Badge - EN"><input value={about.qcBadge.en} onChange={(event) => updateAboutField("qcBadge", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="QC Title - ID"><input value={about.qcTitle.id} onChange={(event) => updateAboutField("qcTitle", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="QC Title - EN"><input value={about.qcTitle.en} onChange={(event) => updateAboutField("qcTitle", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  <Field label="QC Desc - ID"><textarea value={about.qcDesc.id} onChange={(event) => updateAboutField("qcDesc", "id", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                  <Field label="QC Desc - EN"><textarea value={about.qcDesc.en} onChange={(event) => updateAboutField("qcDesc", "en", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                </div>
+              </div>
+
+              <aside className="rounded-[2.5rem] border-4 border-stone-200 bg-stone-100 p-6 shadow-inner">
+                <p className="mb-4 rounded-full bg-white px-4 py-2 text-sm font-black text-stone-500 shadow-sm">📱 About Preview</p>
+                <div className="space-y-4 rounded-3xl bg-white p-5 shadow-xl">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-emerald-700">{about.aboutBadge.id}</p>
+                  <h3 className="serif text-2xl font-bold text-emerald-950">{about.companyName.id}</h3>
+                  <p className="text-sm text-stone-600">{about.paragraphs[0].id}</p>
+                  <p className="text-sm text-stone-600">{about.paragraphs[1].id}</p>
+                  <p className="text-sm text-stone-600">{about.paragraphs[2].id}</p>
+                </div>
+              </aside>
+            </div>
+          )}
+
+          {(tab === "products" || tab === "partners") && (
             <div className="mt-8 space-y-6">
+              {tab === "partners" && (
+                <div className="rounded-[2rem] border-4 border-purple-100 bg-purple-50 p-5">
+                  <p className="mb-4 text-sm font-bold text-purple-800">Partners Page Copy</p>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <Field label="Hero Badge - ID"><input value={partnersPage.heroBadge.id} onChange={(event) => updatePartnersPageField("heroBadge", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                    <Field label="Hero Badge - EN"><input value={partnersPage.heroBadge.en} onChange={(event) => updatePartnersPageField("heroBadge", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                    <Field label="Hero Title - ID"><input value={partnersPage.heroTitle.id} onChange={(event) => updatePartnersPageField("heroTitle", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                    <Field label="Hero Title - EN"><input value={partnersPage.heroTitle.en} onChange={(event) => updatePartnersPageField("heroTitle", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                    <Field label="Hero Desc - ID"><textarea value={partnersPage.heroDesc.id} onChange={(event) => updatePartnersPageField("heroDesc", "id", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                    <Field label="Hero Desc - EN"><textarea value={partnersPage.heroDesc.en} onChange={(event) => updatePartnersPageField("heroDesc", "en", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                    <Field label="Section Title - ID"><input value={partnersPage.sectionTitle.id} onChange={(event) => updatePartnersPageField("sectionTitle", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                    <Field label="Section Title - EN"><input value={partnersPage.sectionTitle.en} onChange={(event) => updatePartnersPageField("sectionTitle", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                    <Field label="Section Desc - ID"><textarea value={partnersPage.sectionDesc.id} onChange={(event) => updatePartnersPageField("sectionDesc", "id", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                    <Field label="Section Desc - EN"><textarea value={partnersPage.sectionDesc.en} onChange={(event) => updatePartnersPageField("sectionDesc", "en", event.target.value)} className="min-h-[120px] w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-sm leading-relaxed outline-none" /></Field>
+                    <Field label="CTA Button - ID"><input value={partnersPage.ctaButton.id} onChange={(event) => updatePartnersPageField("ctaButton", "id", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                    <Field label="CTA Button - EN"><input value={partnersPage.ctaButton.en} onChange={(event) => updatePartnersPageField("ctaButton", "en", event.target.value)} className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none" /></Field>
+                  </div>
+                </div>
+              )}
+
               <div className="rounded-[2rem] border-4 border-stone-100 bg-stone-50 p-5">
                 <p className="mb-4 text-sm font-bold text-stone-600">
                   {tab === "products"
-                    ? "👉 Klik barang mana yang mau diedit:"
-                    : "👉 Klik teman kerja mana yang mau diedit:"}
+                    ? "👉 Drag the product card to reorder, or click to edit:"
+                    : "👉 Drag the partner card to reorder, or click to edit:"}
                 </p>
-                <div className="custom-scrollbar flex gap-3 overflow-x-auto pb-4">
+                <div
+                  className="custom-scrollbar flex gap-3 overflow-x-auto pb-4 select-none"
+                  style={{ touchAction: "pan-y" }}
+                  onScroll={handleSelectorScroll}
+                  onDragOver={(event) => event.preventDefault()}
+                  onDrop={() => handleSelectorDropToEnd(tab)}
+                >
                   {tab === "products"
                     ? products.map((product, index) => (
                         <button
                           key={`product-editor-select-${index}`}
                           type="button"
-                          onClick={() => setSelectedProductIndex(index)}
+                          onClick={() => handleSelectProduct(index)}
+                          draggable
+                          data-selector-index={index}
+                          onDragStart={(event) => startSelectorDrag("products", index, event)}
+                          onDragEnd={endSelectorDrag}
+                          onDragOver={(event) => event.preventDefault()}
+                          onDrop={() => handleSelectorDrop("products", index)}
                           className={`min-w-[140px] flex-shrink-0 rounded-2xl border-2 px-4 py-3 text-left transition transform hover:-translate-y-1 ${
                             selectedProductIndex === index
                               ? "scale-105 border-sky-400 bg-sky-100 shadow-md"
                               : "border-stone-200 bg-white hover:border-stone-300"
                           }`}
                         >
-                          <p className="line-clamp-1 font-bold text-stone-900">{product.title || "Tanpa Nama"}</p>
-                          <p className="mt-1 text-xs text-stone-500">{product.size || "Ukuran?"}</p>
+                          <p className="line-clamp-1 font-bold text-stone-900">{product.title || "Untitled"}</p>
+                          <p className="mt-1 text-xs text-stone-500">{product.size || "Size?"}</p>
                         </button>
                       ))
                     : partners.map((partner, index) => (
                         <button
                           key={`partner-editor-select-${index}`}
                           type="button"
-                          onClick={() => setSelectedPartnerIndex(index)}
+                          onClick={() => handleSelectPartner(index)}
+                          draggable
+                          data-selector-index={index}
+                          onDragStart={(event) => startSelectorDrag("partners", index, event)}
+                          onDragEnd={endSelectorDrag}
+                          onDragOver={(event) => event.preventDefault()}
+                          onDrop={() => handleSelectorDrop("partners", index)}
                           className={`min-w-[140px] flex-shrink-0 rounded-2xl border-2 px-4 py-3 text-left transition transform hover:-translate-y-1 ${
                             selectedPartnerIndex === index
                               ? "scale-105 border-purple-400 bg-purple-100 shadow-md"
                               : "border-stone-200 bg-white hover:border-stone-300"
                           }`}
                         >
-                          <p className="line-clamp-1 font-bold text-stone-900">{partner.name || "Tanpa Nama"}</p>
+                          <p className="line-clamp-1 font-bold text-stone-900">{partner.name || "Untitled"}</p>
                           <p className="mt-1 text-xs text-stone-500">{partner.sector || "Bidang?"}</p>
                         </button>
                       ))}
@@ -785,7 +1128,7 @@ export default function CmsEditor({
                                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-100 text-xl font-black text-sky-600">
                                   {index + 1}
                                 </div>
-                                <h3 className="text-2xl font-black text-stone-800">{product.title || "Barang Baru"}</h3>
+                                <h3 className="text-2xl font-black text-stone-800">{product.title || "New Product"}</h3>
                               </div>
                               <div className="flex gap-2">
                                 <button
@@ -793,14 +1136,14 @@ export default function CmsEditor({
                                   onClick={() => duplicateProduct(index)}
                                   className="rounded-full bg-stone-100 px-4 py-2 text-sm font-bold text-stone-600 transition hover:bg-stone-200"
                                 >
-                                  👯‍♂️ Gandakan
+                                  👯‍♂️ Duplicate
                                 </button>
                                 <button
                                   type="button"
                                   onClick={() => removeProduct(index)}
                                   className="rounded-full bg-red-100 px-4 py-2 text-sm font-bold text-red-600 transition hover:bg-red-500 hover:text-white"
                                 >
-                                  🗑️ Hapus
+                                  🗑️ Delete
                                 </button>
                               </div>
                             </div>
@@ -810,7 +1153,7 @@ export default function CmsEditor({
                                 <input value={product.id} readOnly />
                               </div>
 
-                              <Field label="🛍️ Nama Barangnya Apa?">
+                              <Field label="🛍️ Product Name">
                                 <input
                                   value={product.title}
                                   onChange={(event) => updateProduct(index, { title: event.target.value })}
@@ -853,7 +1196,7 @@ export default function CmsEditor({
                                   />
                                   <div className="w-full rounded-2xl border-2 border-dashed border-sky-300 bg-sky-50 p-4 text-center">
                                     <CloudinaryUploadButton
-                                      label="📸 Pilih Fotonya di Sini"
+                                      label="📸 Choose Product Photo"
                                       accept="image/*"
                                       folder="nmp/products"
                                       onUploaded={(url) => updateProduct(index, { image: url })}
@@ -884,20 +1227,20 @@ export default function CmsEditor({
                                 </select>
                               </Field>
 
-                              <Field label="🎗️ Pita Emas di Pojok (Kosongin kalau nggak ada)">
+                              <Field label="🎗️ Corner Ribbon (leave empty if none)">
                                 <input
                                   value={product.ribbon ?? ""}
                                   onChange={(event) =>
                                     updateProduct(index, { ribbon: event.target.value.trim() || undefined })
                                   }
-                                  placeholder="Contoh: Beli 1 Gratis 1"
+                                  placeholder="Example: Buy 1 Get 1"
                                   className="w-full rounded-2xl border-2 border-stone-200 bg-white px-5 py-4 text-base outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-400/20"
                                 />
                               </Field>
                             </div>
 
                             <div className="mt-6">
-                              <Field label="📝 Ceritain dong tentang barang ini, rasanya gimana?">
+                              <Field label="📝 Product Description">
                                 <textarea
                                   value={product.description}
                                   onChange={(event) => updateProduct(index, { description: event.target.value })}
@@ -934,7 +1277,7 @@ export default function CmsEditor({
                                   onClick={() => removePartner(index)}
                                   className="rounded-full bg-red-100 px-4 py-2 text-sm font-bold text-red-600 transition hover:bg-red-500 hover:text-white"
                                 >
-                                  🗑️ Hapus
+                                  🗑️ Delete
                                 </button>
                               </div>
                             </div>
@@ -967,7 +1310,7 @@ export default function CmsEditor({
                                     />
                                     <div className="w-full rounded-2xl border-2 border-dashed border-purple-300 bg-purple-50 p-4 text-center">
                                       <CloudinaryUploadButton
-                                        label="📸 Pilih Gambar Logonya di Sini"
+                                        label="📸 Choose Partner Logo"
                                         accept="image/*"
                                         folder="nmp/partners"
                                         onUploaded={(url) => updatePartner(index, { logo: url })}
@@ -984,7 +1327,7 @@ export default function CmsEditor({
 
                 <aside className="flex flex-col items-center rounded-[2.5rem] border-4 border-stone-200 bg-stone-100 p-6 shadow-inner">
                   <p className="mb-4 rounded-full bg-white px-4 py-2 text-sm font-black text-stone-500 shadow-sm">
-                    📱 Keliatannya di HP Nanti
+                    📱 Mobile Preview
                   </p>
 
                   {tab === "products" && products[selectedProductIndex] && (
@@ -1016,7 +1359,7 @@ export default function CmsEditor({
                           </p>
                         </div>
                         <h3 className="text-xl font-black leading-tight text-stone-800">
-                          {products[selectedProductIndex].title || "Tanpa Nama"}
+                          {products[selectedProductIndex].title || "Untitled"}
                         </h3>
                         <p className="mt-1 text-xs font-bold text-sky-600">{products[selectedProductIndex].badge}</p>
                         <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-stone-500">

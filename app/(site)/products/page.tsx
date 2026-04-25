@@ -5,9 +5,9 @@ import { getCmsData } from "../../../lib/cms-store";
 const siteUrl = "https://lumbunggrup.id";
 
 export function generateMetadata(): Metadata {
-  const title = "Produk Kyohikari & Hikaru | NMP";
+  const title = "Kyohikari & Hikaru Products | NMP";
   const description =
-    "Jelajahi katalog beras Japonica dan palawija profesional kami, lengkap dengan opsi filter untuk retail, Horeca, dan manufaktur.";
+    "Explore our Japonica rice and professional grains catalog, complete with filters for retail, Horeca, and manufacturing.";
 
   return {
     metadataBase: new URL(siteUrl),
@@ -22,7 +22,7 @@ export function generateMetadata(): Metadata {
           url: `${siteUrl}/beras-jepang-5kg.jpeg`,
           width: 1200,
           height: 630,
-          alt: "Katalog Produk Kyohikari",
+          alt: "Kyohikari product catalog",
         },
       ],
     },

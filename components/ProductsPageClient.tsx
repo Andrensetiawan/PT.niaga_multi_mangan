@@ -14,12 +14,12 @@ type Props = {
 
 const copy = {
   id: {
-    badge: "Product Catalog",
-    title: "Kyohikari & Hikaru Product Lines",
+    badge: "Katalog Produk",
+    title: "Lini Produk Kyohikari & Hikaru",
     description:
-      "Portfolio lengkap beras Japonica premium dan palawija profesional dengan dokumentasi spec sheet, MOQ, dan lead time untuk kebutuhan B2B Anda.",
-    downloadCatalog: "Download Full Catalog PDF",
-    requestSample: "Request Sample Kit",
+      "Portofolio lengkap beras Japonica premium dan palawija profesional dengan dokumentasi spec sheet, opsi MOQ, dan info lead time untuk kebutuhan B2B Anda.",
+    downloadCatalog: "Unduh Katalog Lengkap PDF",
+    requestSample: "Minta Sampel",
     moq: "MOQ Fleksibel",
     moqDesc: "Minimum order disesuaikan dengan kebutuhan bisnis Anda",
     lead: "Lead Time 3-7 Hari",
@@ -61,7 +61,7 @@ export default function ProductsPageClient({ products, productSchemas }: Props) 
         <p className="mx-auto max-w-3xl text-lg text-stone-600 mb-8">{t.description}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
-            href="/docs/Company-Profile-Lumbung-Group.pdf"
+            href="/doc/COMPANY%20PROFILE%20PT%20NIAGA%20MULTI%20PANGAN.pdf"
             target="_blank"
             className="inline-block rounded-full bg-emerald-950 px-8 py-3 text-xs font-bold uppercase tracking-[0.3em] text-white transition hover:bg-emerald-900"
           >
@@ -99,7 +99,7 @@ export default function ProductsPageClient({ products, productSchemas }: Props) 
           <div className="mt-8 text-center">
             <p className="text-sm font-semibold text-stone-700 mb-4">{t.ctaDesc}</p>
             <a
-              href={buildProductInquiryLink()}
+              href={buildProductInquiryLink("[Product Name]", locale)}
               target="_blank"
               className="inline-block rounded-full bg-emerald-950 px-8 py-3 text-xs font-bold uppercase tracking-[0.3em] text-white transition hover:bg-emerald-900"
             >

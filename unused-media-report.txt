@@ -1,0 +1,23 @@
+/file.svg
+/Flat & logistik .jpg
+/gallery/fleet-logistics/muatan-kiriman.jpeg
+/gallery/harvest/hasil-panen.jpg
+/gallery/harvest/hasil-panen-2.jpg
+/gallery/harvest/panen-mesin-harvester.jpg
+/gallery/logistics/foto-armada-2.jpg
+/gallery/logistics/muatan-kiriman-1.jpeg
+/gallery/logistics/muatan-kiriman-1-alt.jpg
+/gallery/logistics/muatan-kiriman-2.jpeg
+/gallery/logistics/muatan-kiriman-alt.jpg
+/gallery/logistics/pengiriman-ke-logistik.jpeg
+/globe.svg
+/KYOHIKARI RED RICE 1KG.jpeg
+/lumbung-group-logo.jpeg
+/mesin shifter .png
+/next.svg
+/owner.jpg
+/padi.png
+/partners/torico.png
+/team-management.jpg
+/vercel.svg
+/window.svg

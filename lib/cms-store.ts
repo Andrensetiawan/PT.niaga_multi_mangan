@@ -6,11 +6,15 @@ import { unstable_cache, revalidateTag } from "next/cache";
 import { partners as defaultPartners, type Partner } from "./data/partners";
 import { PRODUCTS as defaultProducts, type Product } from "./data/products";
 import { DEFAULT_HOME_CONTENT, type HomePageContent } from "./data/home";
+import { DEFAULT_ABOUT_CONTENT, type AboutPageContent } from "./data/about";
+import { DEFAULT_PARTNERS_PAGE_CONTENT, type PartnersPageContent } from "./data/partners-page";
 
 interface CmsData {
   products: Product[];
   partners: Partner[];
   home: HomePageContent;
+  about: AboutPageContent;
+  partnersPage: PartnersPageContent;
   updatedAt: string;
 }
 
@@ -22,6 +26,8 @@ function getDefaultCmsData(): CmsData {
     products: defaultProducts,
     partners: defaultPartners,
     home: DEFAULT_HOME_CONTENT,
+    about: DEFAULT_ABOUT_CONTENT,
+    partnersPage: DEFAULT_PARTNERS_PAGE_CONTENT,
     updatedAt: new Date().toISOString(),
   };
 }
@@ -53,8 +59,20 @@ function isValidHomeContent(value: unknown): value is HomePageContent {
     typeof target.hero.description === "string" &&
     typeof target.quality.title === "string" &&
     typeof target.quality.description === "string" &&
-    Array.isArray(target.quality.videoUrls)
+    Array.isArray(target.quality.videoUrls) &&
+    (target.quality.videoLayout === "alternate" ||
+      target.quality.videoLayout === "2" ||
+      target.quality.videoLayout === "3" ||
+      target.quality.videoLayout === "4")
   );
+}
+
+function isValidAboutContent(value: unknown): value is AboutPageContent {
+  return !!value && typeof value === "object";
+}
+
+function isValidPartnersPageContent(value: unknown): value is PartnersPageContent {
+  return !!value && typeof value === "object";
 }
 
 async function readCmsDataFromFile(): Promise<CmsData> {
@@ -70,6 +88,8 @@ async function readCmsDataFromFile(): Promise<CmsData> {
       products: parsed.products,
       partners: parsed.partners,
       home: isValidHomeContent(parsed.home) ? parsed.home : DEFAULT_HOME_CONTENT,
+      about: isValidAboutContent(parsed.about) ? parsed.about : DEFAULT_ABOUT_CONTENT,
+      partnersPage: isValidPartnersPageContent(parsed.partnersPage) ? parsed.partnersPage : DEFAULT_PARTNERS_PAGE_CONTENT,
       updatedAt: parsed.updatedAt ?? new Date().toISOString(),
     };
   } catch {
@@ -90,11 +110,15 @@ export async function saveCmsData(input: {
   products: Product[];
   partners: Partner[];
   home: HomePageContent;
+  about: AboutPageContent;
+  partnersPage: PartnersPageContent;
 }): Promise<CmsData> {
   const nextData: CmsData = {
     products: input.products,
     partners: input.partners,
     home: input.home,
+    about: input.about,
+    partnersPage: input.partnersPage,
     updatedAt: new Date().toISOString(),
   };
 

@@ -9,15 +9,15 @@ const LOCALE_EVENT = "site-locale-change";
 
 function readLocale(): SiteLocale {
   if (typeof window === "undefined") {
-    return "id";
+    return "en";
   }
 
   const value = window.localStorage.getItem(LOCALE_KEY);
-  return value === "en" ? "en" : "id";
+  return value === "id" ? "id" : "en";
 }
 
 export function useSiteLocale() {
-  const [locale, setLocaleState] = useState<SiteLocale>("id");
+  const [locale, setLocaleState] = useState<SiteLocale>("en");
 
   useEffect(() => {
     const next = readLocale();

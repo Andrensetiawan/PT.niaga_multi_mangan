@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "FloatLocal";
+  src: url("/font/float.ttf?v=2") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NylonBrushLocal";
+  src: url("/font/Nylon%20Brush.otf?v=2") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 @theme {
   --color-emerald-50: #eef3f1;
   --color-emerald-100: #dde8e4;
@@ -22,6 +38,8 @@
   --gold-soft: #b99a64;
   --font-body: var(--font-jakarta, "Plus Jakarta Sans", system-ui);
   --font-serif: var(--font-playfair, "Playfair Display", serif);
+  --font-kyohikari: var(--font-float, "Bebas Neue", "Arial Narrow Bold", sans-serif);
+  --desktop-ui-scale: 1;
 }
 
 html {
@@ -35,25 +53,74 @@ body {
   font-family: var(--font-body);
 }
 
+/* Make desktop 100% zoom feel like previous browser 75% zoom across the full UI. */
+@media (min-width: 1024px) {
+  :root {
+    --desktop-ui-scale: 0.75;
+  }
+
+  html {
+    zoom: var(--desktop-ui-scale);
+  }
+}
+
+/* Fallback for engines that do not support zoom. */
+@supports not (zoom: 1) {
+  @media (min-width: 1024px) {
+    body {
+      transform: scale(var(--desktop-ui-scale));
+      transform-origin: top center;
+      width: calc(100% / var(--desktop-ui-scale));
+      min-height: calc(100vh / var(--desktop-ui-scale));
+    }
+  }
+}
+
 .serif {
   font-family: var(--font-serif);
 }
 
-.hero-gradient {
-  background: linear-gradient(
-      to bottom,
-      rgba(20, 35, 31, 0.65),
-      rgba(32, 52, 47, 0.35)
-    ),
-    url("/padi.png");
-  background-size: cover;
-  background-position: center;
+.lato-wordmark {
+  font-family: var(--font-lato), "Lato", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
-@media (max-width: 640px) {
-  .hero-gradient {
-    background-position: top center;
-  }
+.kyohikari-wordmark {
+  font-family: "FloatLocal" !important;
+  font-weight: 400;
+  font-size: 1.28em;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+}
+
+.hikaru-wordmark {
+  font-family: "NylonBrushLocal", var(--font-nylon-brush), var(--font-serif), serif !important;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  font-size: 1.5em;
+  line-height: 0.9;
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 35, 31, 0.65),
+    rgba(32, 52, 47, 0.35)
+  );
+}
+
+.hero-rice-field {
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.2) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 38% 42%, rgba(255, 255, 255, 0.13) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 72% 24%, rgba(185, 154, 100, 0.26) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 82% 72%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1.5px),
+    linear-gradient(115deg, transparent 0 39%, rgba(255, 255, 255, 0.05) 39.5% 40.5%, transparent 41% 100%),
+    linear-gradient(160deg, transparent 0 63%, rgba(185, 154, 100, 0.08) 63.5% 64.5%, transparent 65% 100%);
+  background-size: 180px 180px, 220px 220px, 260px 260px, 200px 200px, 100% 100%, 100% 100%;
+  opacity: 0.9;
+  mix-blend-mode: screen;
 }
 
 .product-card {
@@ -69,15 +136,23 @@ body {
   color: #fff;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
+/* Hide native scrollbars globally while keeping scroll behavior */
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--emerald-primary);
-  border-radius: 10px;
+.custom-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }

@@ -10,20 +10,14 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const isHomePage = pathname === "/home";
   const [scrolled, setScrolled] = useState(false);
-  const [showMobileMenuButton, setShowMobileMenuButton] = useState(false);
+  const [showMobileMenuButton, setShowMobileMenuButton] = useState(true);
 
   useEffect(() => {
     let ticking = false;
 
     const updateFromScroll = () => {
-      const currentScroll = window.scrollY;
-      const nextScrolled = currentScroll > 20;
-      const nextShowMobileMenuButton = currentScroll > 100;
-
-      setScrolled((prev) => (prev !== nextScrolled ? nextScrolled : prev));
-      setShowMobileMenuButton((prev) =>
-        prev !== nextShowMobileMenuButton ? nextShowMobileMenuButton : prev,
-      );
+      const nextScrolled = window.scrollY > 20;
+      setScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
       ticking = false;
     };
 
@@ -38,7 +32,10 @@ export default function SiteHeader() {
 
     updateFromScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -46,12 +43,18 @@ export default function SiteHeader() {
       className={`fixed left-0 right-0 z-50 transition-all duration-300 ease-out ${
         scrolled 
           ? "top-0 bg-white/95 shadow-lg backdrop-blur-lg" 
-          : "top-0 bg-white/95 shadow-md backdrop-blur"
+          : isHomePage
+            ? "top-0 bg-transparent shadow-none"
+            : "top-0 bg-white/95 shadow-md backdrop-blur"
       }`}
     >
       <div className="mx-auto flex max-w-7xl flex-col px-4 lg:px-12">
         <div className={`px-1 lg:hidden ${isHomePage ? "pt-1" : "pt-2"}`}>
-          <div className="flex items-center justify-between rounded-[2rem] bg-white px-4 py-3 shadow-sm ring-1 ring-stone-200/80">
+          <div className={`flex items-center justify-between rounded-[2rem] px-4 py-3 transition-all duration-300 ${
+            isHomePage && !scrolled
+              ? "bg-white/10 shadow-none ring-1 ring-white/35 backdrop-blur-md"
+              : "bg-white shadow-sm ring-1 ring-stone-200/80"
+          }`}>
             <Link href="/home" className="flex items-center gap-3">
               <div className="relative shrink-0">
                 <Image
@@ -65,8 +68,8 @@ export default function SiteHeader() {
                 <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white bg-emerald-500 shadow-sm" />
               </div>
               <div className="leading-none">
-                <p className="text-lg font-black tracking-tight text-stone-900">NMP</p>
-                <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.22em] text-stone-500">
+                <p className={`text-lg font-black tracking-tight ${isHomePage && !scrolled ? "text-white" : "text-stone-900"}`}>NMP</p>
+                <p className={`mt-1 text-[10px] font-bold uppercase tracking-[0.22em] ${isHomePage && !scrolled ? "text-white/85" : "text-stone-500"}`}>
                   PT. Niaga Multi Pangan
                 </p>
               </div>
@@ -105,15 +108,19 @@ export default function SiteHeader() {
             {!scrolled && (
               <div className="flex flex-col items-center">
                 <span
-                  className={`font-black leading-none tracking-tight text-emerald-950 transition-all duration-300 ${
+                  className={`font-black leading-none tracking-tight transition-all duration-300 ${
+                    isHomePage && !scrolled ? "text-white" : "text-emerald-950"
+                  } ${
                     isHomePage ? "text-base" : "text-lg"
                   }`}
                 >
                   NMP
                 </span>
                 <span
-                  className={`font-semibold leading-tight tracking-wide text-gray-800 transition-all duration-300 ${
-                    isHomePage ? "text-[8px]" : "text-[9px]"
+                  className={`font-semibold leading-tight tracking-wide transition-all duration-300 ${
+                    isHomePage && !scrolled ? "text-white/90" : "text-gray-800"
+                  } ${
+                    isHomePage ? "text-[13px]" : "text-[10px]"
                   }`}
                 >
                   PT.Niaga Multi Pangan

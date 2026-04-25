@@ -1,45 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface VideoPlayerProps {
   videos?: string[];
+  layoutMode?: "alternate" | "2" | "3" | "4";
 }
 
-const defaultVideos = ["/Vidio produk hikaru.mp4", "/Vidio produk kyohikari.mp4"];
+const publicVideos = [
+  "/Vidio/Vidio produk hikaru.mp4",
+  "/Vidio/Vidio produk kyohikari.mp4",
+  "/Vidio/Behind the quality- vidio proses menjaga kualitas.mp4",
+];
 
-export default function VideoPlayer({ videos = defaultVideos }: VideoPlayerProps) {
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const [hasError, setHasError] = useState(false);
+const defaultVideos = publicVideos;
+
+export default function VideoPlayer({ videos = defaultVideos, layoutMode = "2" }: VideoPlayerProps) {
+  const normalizedVideos = useMemo(() => {
+    const source = videos.length ? videos : defaultVideos;
+    return source.filter((video) => typeof video === "string" && video.trim().length > 0);
+  }, [videos]);
+
+  const alternateVideos = normalizedVideos.length ? normalizedVideos : publicVideos;
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const activeVideo = alternateVideos[activeIndex] ?? defaultVideos[0];
 
   const handleVideoEnd = () => {
-    setCurrentVideo((prev) => (prev + 1) % videos.length);
+    if (alternateVideos.length <= 1) {
+      return;
+    }
+
+    setActiveIndex((current) => (current + 1) % alternateVideos.length);
   };
 
-  if (hasError) {
+  if (layoutMode === "alternate") {
     return (
-      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-emerald-100 to-stone-100 px-6 text-center text-stone-700">
-        <p>
-          Video belum tersedia. Pastikan file ada di folder public dengan nama:
-          Vidio produk hikaru.mp4 dan Vidio produk kyohikari.mp4.
-        </p>
+      <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-emerald-100 to-stone-100 shadow-xl ring-1 ring-stone-200">
+        <video
+          key={activeVideo}
+          className="h-full w-full object-cover"
+          autoPlay
+          controls
+          muted
+          playsInline
+          preload="metadata"
+          onEnded={handleVideoEnd}
+        >
+          <source src={activeVideo} type="video/mp4" />
+          Your browser does not support HTML5 video.
+        </video>
       </div>
     );
   }
 
+  const columns = layoutMode === "3" ? 3 : layoutMode === "4" ? 4 : 2;
+  const visibleVideos = normalizedVideos.slice(0, columns);
+
   return (
-    <video
-      className="h-full w-full object-cover"
-      autoPlay
-      controls
-      muted
-      playsInline
-      preload="metadata"
-      onEnded={handleVideoEnd}
-      onError={() => setHasError(true)}
-    >
-      <source src={videos[currentVideo]} type="video/mp4" />
-      Browser Anda tidak mendukung video HTML5.
-    </video>
+    <div className={`grid h-full w-full gap-2 ${columns === 4 ? "md:grid-cols-2 xl:grid-cols-4" : columns === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+      {visibleVideos.map((videoUrl, index) => (
+        <div key={`${videoUrl}-${index}`} className="overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-100 to-stone-100 shadow-xl ring-1 ring-stone-200">
+          <video
+            className="h-full w-full object-cover"
+            autoPlay
+            controls
+            muted
+            playsInline
+            loop
+            preload="metadata"
+          >
+            <source src={videoUrl} type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+      ))}
+    </div>
   );
 }

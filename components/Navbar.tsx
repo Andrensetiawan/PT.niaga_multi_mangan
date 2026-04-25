@@ -26,7 +26,7 @@ const translations = {
       about: "Tentang Kami",
       products: "Produk",
       partners: "Mitra",
-      docs: "Dokumen",
+      docs: "Galeri",
     },
     contact: "Hubungi Kami",
     menu: "Menu",
@@ -78,19 +78,13 @@ export default function Navbar({
   // Handle body overflow in useEffect to prevent state update during render
   useEffect(() => {
     if (isOpen) {
-      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
-      document.body.style.height = "100vh";
     } else {
-      document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
-      document.body.style.height = "auto";
     }
 
     return () => {
-      document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
-      document.body.style.height = "auto";
     };
   }, [isOpen]);
 
@@ -110,14 +104,14 @@ export default function Navbar({
               href={link.href}
               className={`relative py-2 font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
                 scrolled
-                  ? "text-[9px] " + (isActive 
+                  ? "text-[12px] " + (isActive 
                     ? "text-emerald-950" 
                     : "text-emerald-700 hover:text-emerald-950")
                   : isHomePage
-                    ? "text-[10px] " + (isActive
-                      ? "text-gray-900"
-                      : "text-gray-700 hover:text-gray-900")
-                    : "text-[11px] " + (isActive
+                    ? "text-[13px] " + (isActive
+                      ? "text-white"
+                      : "text-white/85 hover:text-white")
+                    : "text-[14px] " + (isActive
                     ? "text-gray-900"
                     : "text-gray-700 hover:text-gray-900")
               }`}
@@ -125,7 +119,7 @@ export default function Navbar({
               {t.nav[link.key]}
               {isActive && (
                 <span className={`absolute -bottom-1 left-0 h-[2px] w-full transition-colors duration-300 ${
-                  scrolled ? "bg-emerald-950" : "bg-gray-900"
+                  scrolled ? "bg-emerald-950" : isHomePage ? "bg-white" : "bg-gray-900"
                 }`} />
               )}
             </Link>
@@ -136,10 +130,14 @@ export default function Navbar({
           <button
             type="button"
             onClick={() => setIsLanguageMenuOpen((current) => !current)}
-            className="flex items-center gap-2 rounded-full border border-stone-200 bg-white/90 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-700 shadow-sm transition hover:bg-white"
+            className={`flex items-center gap-2 rounded-full px-3 py-2 text-[12px] font-bold uppercase tracking-[0.2em] shadow-sm transition ${
+              isHomePage && !scrolled
+                ? "border border-white/45 bg-white/12 text-white hover:bg-white/20"
+                : "border border-stone-200 bg-white/90 text-stone-700 hover:bg-white"
+            }`}
             aria-label={t.language}
           >
-            <span className="text-base leading-none">{activeLanguage.flag}</span>
+            <span className="text-[20px] leading-none">{activeLanguage.flag}</span>
             <ChevronDown size={14} />
           </button>
 
@@ -153,7 +151,7 @@ export default function Navbar({
                     setLocale(option.value);
                     setIsLanguageMenuOpen(false);
                   }}
-                  className="flex w-full items-center justify-between px-4 py-3 text-left text-sm text-stone-700 transition hover:bg-stone-50"
+                  className="flex w-full items-center justify-between px-4 py-3 text-left text-base text-stone-700 transition hover:bg-stone-50"
                 >
                   <span className="flex items-center gap-2">
                     <span>{option.flag}</span>

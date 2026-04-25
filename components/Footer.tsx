@@ -1,68 +1,35 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Instagram, Facebook, AtSign } from "lucide-react";
 import { useSiteLocale } from "./useSiteLocale";
 
 const officePhone = "021-27846285";
-const whatsappNumber = "+62 858-1184-8112";
-const whatsappLink = "https://wa.me/6285811848112";
 const externalWebsite = "https://kyohikari.com";
-
-const quickLinks = [
-  { label: "Beranda", href: "/home" },
-  { label: "Tentang Kami", href: "/about" },
-  { label: "Produk", href: "/products" },
-  { label: "Kontak", href: "/contact" },
-  { label: "Masuk CMS", href: "/cms/login" },
-];
 
 const copy = {
   id: {
     title: "Spesialis Premium Kyohikari & Hikaru",
     subtitle:
       "Kami membantu restoran, hotel, dan retailer menjaga konsistensi rasa melalui pemilihan butir terbaik dan dukungan pengiriman nasional.",
-    quickAccess: "Akses Cepat",
-    contactDesk: "Kontak & Reseller",
-    whatsappOwner: "WhatsApp Pemilik",
-    available:
-      "Tersedia 09.00 - 21.00 WIB untuk konsultasi volume, kerja sama private label, dan jadwal kunjungan fasilitas.",
-    chatNow: "Chat Sekarang",
     legal: "Legalitas",
     followUs: "Ikuti Kami",
+    marketplace: "Marketplace",
     ownerDoc: "Lihat Biodata Owner",
-    links: {
-      home: "Beranda",
-      about: "Tentang Kami",
-      products: "Produk",
-      contact: "Kontak",
-      cms: "Login CMS",
-    },
-    trust1: "Tersertifikasi BPOM",
-    trust2: "Siap ISO 9001",
-    trust3: "Kontrol Kualitas 24/7",
-    trust4: "Distribusi Nasional",
+    trust1: "BPOM Certified",
+    trust2: "ISO 9001 Ready",
+    trust3: "24/7 Quality Control",
+    trust4: "Nationwide Distribution",
   },
   en: {
     title: "Premium Kyohikari & Hikaru Specialist",
     subtitle:
       "We help restaurants, hotels, and retailers maintain flavor consistency through premium grain selection and nationwide delivery support.",
-    quickAccess: "Quick Access",
-    contactDesk: "Contact & Reseller Desk",
-    whatsappOwner: "WhatsApp Owner",
-    available:
-      "Available 09.00 - 21.00 WIB for volume consultation, private-label collaboration, and facility visit scheduling.",
-    chatNow: "Chat Now",
     legal: "Legal",
     followUs: "Follow Us",
+    marketplace: "Marketplace",
     ownerDoc: "View Owner Biodata",
-    links: {
-      home: "Home",
-      about: "About",
-      products: "Products",
-      contact: "Contact",
-      cms: "CMS Login",
-    },
     trust1: "BPOM Certified",
     trust2: "ISO 9001 Ready",
     trust3: "24/7 Quality Control",
@@ -74,78 +41,53 @@ export default function Footer() {
   const { locale } = useSiteLocale();
   const t = copy[locale];
 
-  const localizedQuickLinks = [
-    { ...quickLinks[0], label: t.links.home },
-    { ...quickLinks[1], label: t.links.about },
-    { ...quickLinks[2], label: t.links.products },
-    { ...quickLinks[3], label: t.links.contact },
-    { ...quickLinks[4], label: t.links.cms },
-  ];
-
   return (
     <footer className="bg-emerald-950 text-white">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-3">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 lg:grid-cols-3">
         <div>
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-300">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-300">
             Niaga Multi Pangan
           </p>
-          <h3 className="serif mt-3 text-3xl font-bold">{t.title}</h3>
-          <p className="mt-4 text-sm text-emerald-100/80">
+          <h3 className="mt-3 text-2xl font-extrabold leading-tight tracking-tight sm:text-[2rem]">
+            {t.title}
+          </h3>
+          <p className="mt-4 max-w-xl text-[15px] leading-7 text-emerald-100/85">
             {t.subtitle}
           </p>
-          <div className="mt-6 space-y-3 text-sm font-semibold">
-            <p>Tel: {officePhone}</p>
-            <p>Email: lumbungmakananutama@gmail.com</p>
+          <div className="mt-6 space-y-3 text-[15px] leading-7 font-medium text-emerald-50">
+            <p><span className="font-semibold text-white">Tel:</span> {officePhone}</p>
+            <p><span className="font-semibold text-white">Email:</span> admin@niagamultipangan.com</p>
             <p>
-              Website lain:{" "}
+              {locale === "id" ? "Website lain:" : "Other website:"}{" "}
               <a href={externalWebsite} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-emerald-100">
                 {externalWebsite}
               </a>
             </p>
-            <p>Kantor Pusat: Jl. Pala I No. 50 A.LKMD, Pd Cabe Udik, Tangerang Selatan</p>
-          </div>
-        </div>
-
-        <div>
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-300">
-            {t.quickAccess}
-          </p>
-          <div className="mt-4 flex flex-col gap-3 text-sm">
-            {localizedQuickLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="text-emerald-100 transition hover:text-white">
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-300">
-            {t.contactDesk}
-          </p>
-          <div className="mt-4 rounded-3xl border border-white/10 bg-white/5 p-6">
-            <p className="text-lg font-semibold text-white">{t.whatsappOwner}</p>
-            <p className="text-sm text-emerald-100">{whatsappNumber}</p>
-            <p className="mt-3 text-xs text-emerald-200">
-              {t.available}
+            <p>
+              {locale === "id" ? "Kantor Pusat:" : "Head Office:"}{" "}
+              Jl. Pala I No.50 A, RT.002/RW.001, LKMD, Pd. Cabe Udik, Kec. Pamulang, Kota Tangerang Selatan, Banten 15418
             </p>
-            <Link
-              href={whatsappLink}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-xs font-black uppercase tracking-[0.4em] text-emerald-900 transition hover:bg-emerald-100"
-            >
-              {t.chatNow}
-            </Link>
           </div>
-          <div className="mt-6 text-xs text-emerald-200">
+        </div>
+
+        <div>
+          <Link
+            href="/cms/login"
+            className="inline-flex rounded-full border border-emerald-200/40 px-5 py-2.5 text-[13px] font-semibold text-emerald-100 transition hover:bg-white/10 hover:text-white"
+          >
+            CMS Login
+          </Link>
+        </div>
+
+        <div>
+          <div className="text-sm text-emerald-200">
             <p>{t.legal}</p>
             <p className="mt-2">&copy; AFD Corp 2026</p>
           </div>
           
           {/* Social Media Links */}
           <div className="mt-6">
-            <p className="mb-3 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-300">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-300">
               {t.followUs}
             </p>
             <div className="flex gap-3">
@@ -175,6 +117,42 @@ export default function Footer() {
                 aria-label="Threads"
               >
                 <AtSign size={20} />
+              </a>
+            </div>
+
+            <p className="mb-3 mt-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-300">
+              {t.marketplace}
+            </p>
+            <div className="flex gap-4">
+              <a
+                href="https://tk.tokopedia.com/ZSHpmrYkM/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center gap-2 text-emerald-100 transition-transform duration-300 hover:-translate-y-0.5"
+                aria-label="Tokopedia"
+                title="Tokopedia"
+              >
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 shadow-lg backdrop-blur transition-all duration-300 group-hover:scale-110 group-hover:border-white/40">
+                  <span className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[#03AC0E]/20 ring-1 ring-[#03AC0E]/50">
+                    <Image src="/logo/tokopedia.png" alt="Tokopedia logo" width={32} height={32} className="h-7 w-7 scale-110 object-contain" />
+                  </span>
+                </span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-200/90">Tokopedia</span>
+              </a>
+              <a
+                href="https://shopee.co.id/nmpfoods"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center gap-2 text-emerald-100 transition-transform duration-300 hover:-translate-y-0.5"
+                aria-label="Shopee"
+                title="Shopee"
+              >
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 shadow-lg backdrop-blur transition-all duration-300 group-hover:scale-110 group-hover:border-white/40">
+                  <span className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[#EE4D2D]/20 ring-1 ring-[#EE4D2D]/50">
+                    <Image src="/logo/shoope.png" alt="Shopee logo" width={32} height={32} className="h-7 w-7 scale-110 object-contain" />
+                  </span>
+                </span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-200/90">Shopee</span>
               </a>
             </div>
           </div>

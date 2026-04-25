@@ -24,7 +24,6 @@ export const partners: Partner[] = [
   { name: "Duta Buah", sector: "Fresh Produce", logo: "/partners/duta-buah.png" },
   { name: "Papaya Fresh Gallery", sector: "Fresh Market", logo: "/partners/papaya.png" },
   { name: "Total Buah Segar", sector: "Fruit Specialist", logo: "/partners/total-buah.png" },
-  { name: "Freshko", sector: "Fresh Food", logo: "/partners/freshko.png" },
   { name: "Food Max", sector: "Food Retailer", logo: "/partners/food-max.png" },
   { name: "Capital Fruit", sector: "Premium Produce", logo: "/partners/capital-fruit.jpg" },
   
@@ -42,14 +41,17 @@ export const partners: Partner[] = [
   { name: "Ramen Sanpachi", sector: "Ramen House", logo: "/partners/ramen-sanpachi.png" },
   { name: "Marugame Udon", sector: "Noodles & Tempura", logo: "/partners/marugame-udon.jpg" },
   { name: "Fukaya", sector: "Japanese Fusion", logo: "/partners/fukaya.jpg" },
-  { name: "Jakarta Arita", sector: "Japanese Restaurant", logo: "/partners/jakarta-arita.png" },
   
   // Korean & Other
   { name: "Mu Gung Hwa", sector: "Korean Restaurant", logo: "/partners/mu-gung-hwa.png" },
   { name: "Mujigae", sector: "Casual Korean", logo: "/partners/mujigae.png" },
+  { name: "Makishi", sector: "Restaurant Partner", logo: "/partners/makishi.svg" },
+  { name: "Batari", sector: "Restaurant Partner", logo: "/partners/batari.svg" },
+  { name: "111 Resto", sector: "Restaurant Partner", logo: "/partners/111-resto.svg" },
+  { name: "Philip", sector: "Restaurant Partner", logo: "/partners/philip.svg" },
   
   // Specialty Suppliers
   { name: "Karubi Maru", sector: "Beef Specialist", logo: "/partners/karubi-maru.png" },
-  { name: "Nakajima Suisan", sector: "Seafood Supplier", logo: "/partners/nakajima-suisan.png" },
+  { name: "Nakajima Suisan", sector: "Japanese Deli", logo: "/partners/nakajima-suisan.png" },
 ];
 

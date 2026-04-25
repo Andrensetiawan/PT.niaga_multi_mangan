@@ -55,7 +55,7 @@ const localBusinessSchema = {
 export function generateMetadata(): Metadata {
   const title = "NMP | Kyohikari & Hikaru Specialist";
   const description =
-    "Distributor resmi Kyohikari dan Hikaru dengan dukungan QC 24/7 untuk kebutuhan retail, hotel, dan industri kuliner di Indonesia.";
+    "Official distributor of Kyohikari and Hikaru with 24/7 QC support for retail, hotel, and food-industry needs in Indonesia.";
 
   return {
     metadataBase: new URL(siteUrl),
@@ -71,7 +71,7 @@ export function generateMetadata(): Metadata {
           url: `${siteUrl}${showcaseImage}`,
           width: 1200,
           height: 630,
-          alt: "Fasilitas NMP",
+          alt: "NMP facility",
         },
       ],
     },

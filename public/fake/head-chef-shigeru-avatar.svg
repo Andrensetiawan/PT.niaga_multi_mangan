@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Avatar Head Chef Shigeru">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#bfdbfe"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" rx="120" fill="url(#bg2)"/>
+  <circle cx="120" cy="96" r="40" fill="#fde68a"/>
+  <path d="M82 94c5-30 22-50 38-50 18 0 35 20 40 50-11-12-23-18-40-18-16 0-27 6-38 18z" fill="#111827"/>
+  <rect x="68" y="140" width="104" height="72" rx="36" fill="#1e3a8a"/>
+  <rect x="90" y="112" width="60" height="72" rx="30" fill="#fde68a"/>
+  <circle cx="106" cy="96" r="4" fill="#111827"/>
+  <circle cx="134" cy="96" r="4" fill="#111827"/>
+  <path d="M106 114c4 5 9 7 14 7 5 0 10-2 14-7" fill="none" stroke="#92400e" stroke-width="4" stroke-linecap="round"/>
+  <rect x="88" y="128" width="64" height="14" rx="6" fill="#ffffff"/>
+</svg>

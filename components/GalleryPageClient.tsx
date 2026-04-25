@@ -16,10 +16,10 @@ type Props = {
 
 const copy = {
   id: {
-    heroBadge: "Visual Journey",
-    heroTitle: "Visual Journey",
+    heroBadge: "Perjalanan Visual",
+    heroTitle: "Galeri NMP",
     heroDesc:
-      "Jelajahi fasilitas, proses quality control, dan momen kemitraan yang membentuk standar kualitas kami sejak 2017.",
+      "Jelajahi fasilitas, proses quality control, dan momen kemitraan yang membentuk standar kualitas kami.",
     ctaTitle: "Ingin Melihat Langsung?",
     ctaDesc:
       "Kunjungi fasilitas kami dan lihat sendiri proses quality control yang membuat produk kami berbeda. Hubungi tim kami untuk jadwalkan kunjungan pabrik.",
@@ -42,7 +42,7 @@ export default function GalleryPageClient({ categories }: Props) {
   const t = copy[locale];
 
   return (
-    <div className="relative bg-white pt-28 pb-20">
+    <div className="relative bg-white pb-20">
       <section className="bg-gradient-to-br from-emerald-900 to-emerald-700 py-20 text-white">
         <div className="mx-auto max-w-7xl px-6 text-center sm:px-12">
           <span className="mb-4 inline-flex items-center justify-center rounded-full border border-white/40 px-5 py-2 text-[10px] font-black uppercase tracking-[0.35em] backdrop-blur">{t.heroBadge}</span>

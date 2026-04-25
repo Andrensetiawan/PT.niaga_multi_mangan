@@ -11,34 +11,15 @@
       "size": "2KG"
     },
     {
-      "id": "kyohikari-white-5kg",
-      "title": "Kyohikari Rice 5KG",
-      "category": "rice",
+      "id": "hikaru-5",
+      "title": "Hikaru Rice 5KG",
+      "category": "hikaru",
       "image": "/beras-jepang-5kg.jpeg",
-      "badge": "Premium White Rice",
+      "badge": "Resto & Hotel Line",
       "badgeColor": "text-emerald-600",
-      "description": "Family pack untuk stok mingguan, menjaga rasa autentik masakan Jepang di rumah.",
-      "size": "5KG"
-    },
-    {
-      "id": "kyohikari-white-20kg",
-      "title": "Kyohikari Rice 20KG",
-      "category": "rice",
-      "image": "/beras-jepang-20kg.jpeg",
-      "badge": "Premium White Rice",
-      "badgeColor": "text-emerald-600",
-      "description": "Kemasan besar bagi reseller atau dapur profesional yang memerlukan standar head rice tinggi.",
-      "size": "20KG"
-    },
-    {
-      "id": "kyohikari-red",
-      "title": "Kyohikari Red Rice",
-      "category": "rice",
-      "image": "/kyohikari-red-rice-1kg.jpeg",
-      "badge": "Specialty Healthy Rice",
-      "badgeColor": "text-red-600",
-      "description": "Beras merah pilihan dengan serat tinggi, diproses agar tetap empuk saat dimasak dan kaya nutrisi.",
-      "size": "1KG"
+      "description": "Kemasan 5KG untuk kebutuhan restoran dan kitchen profesional dengan kualitas konsisten.",
+      "size": "5KG",
+      "ribbon": "Professional Use"
     },
     {
       "id": "kyohikari-black",
@@ -111,8 +92,39 @@
       "size": "500GR"
     },
     {
+      "id": "kyohikari-chuka",
+      "title": "Kyohikari Chuka Wakame",
+      "category": "grains",
+      "image": "/beras-jepang-2kg.jpeg",
+      "badge": "Japanese Side Dish",
+      "badgeColor": "text-emerald-600",
+      "description": "Chuka wakame siap saji dengan rasa gurih segar, cocok sebagai side dish restoran Jepang, sushi bar, dan rice bowl.",
+      "size": "500GR"
+    },
+    {
+      "id": "kyohikari-red",
+      "title": "Kyohikari Red Rice",
+      "category": "rice",
+      "image": "/kyohikari-red-rice-1kg.jpeg",
+      "badge": "Specialty Healthy Rice",
+      "badgeColor": "text-red-600",
+      "description": "Beras merah pilihan dengan serat tinggi, diproses agar tetap empuk saat dimasak dan kaya nutrisi.",
+      "size": "1KG"
+    },
+    {
+      "id": "hikaru-20",
+      "title": "Hikaru Rice 20KG",
+      "category": "hikaru",
+      "image": "/beras-jepang-20kg.jpeg",
+      "badge": "Supply Chain Line",
+      "badgeColor": "text-emerald-600",
+      "description": "Kemasan 20KG untuk kebutuhan dapur besar dan distribusi dengan suplai stabil.",
+      "size": "20KG",
+      "ribbon": "Industrial Scale"
+    },
+    {
       "id": "hikaru-10",
-      "title": "Hikaru 10KG",
+      "title": "Hikaru Rice 10KG",
       "category": "hikaru",
       "image": "/beras-jepang-10kg.jpeg",
       "badge": "Resto & Hotel Line",
@@ -123,7 +135,7 @@
     },
     {
       "id": "hikaru-25",
-      "title": "Hikaru 25KG",
+      "title": "Hikaru Rice 25KG",
       "category": "hikaru",
       "image": "/beras-jepang-20kg.jpeg",
       "badge": "Supply Chain Line",
@@ -131,6 +143,69 @@
       "description": "Kemasan ekonomis untuk kebutuhan dapur besar, katering, dan jaringan industri makanan.",
       "size": "25KG",
       "ribbon": "Industrial Scale"
+    },
+    {
+      "id": "hikaru-tobiko-green",
+      "title": "Hikaru Tobiko Green",
+      "category": "hikaru",
+      "image": "/tobiko green.jpeg",
+      "badge": "Green Flying Fish Roe",
+      "badgeColor": "text-emerald-700",
+      "description": "Tobiko hijau premium dengan tekstur renyah dan rasa gurih segar. Ideal untuk sushi, sashimi, rice bowl, dan salad. Simpan dalam freezer.",
+      "size": "500GR",
+      "ribbon": "Premium Seafood"
+    },
+    {
+      "id": "hikaru-tobiko-orange",
+      "title": "Hikaru Tobiko Orange Flying Fish Roe",
+      "category": "hikaru",
+      "image": "/tobiko orange.jpeg",
+      "badge": "Orange Flying Fish Roe",
+      "badgeColor": "text-orange-600",
+      "description": "Tobiko oranye premium dengan tekstur renyah dan rasa gurih segar. Cocok untuk sushi, gunkan, sashimi, rice bowl, dan salad. Simpan dalam freezer.",
+      "size": "500GR",
+      "ribbon": "Premium Seafood"
+    },
+    {
+      "id": "hikaru-tobiko-black",
+      "title": "Hikaru Tobiko Black (Hitam) Flying Fish Roe",
+      "category": "hikaru",
+      "image": "/tobiko Black.jpeg",
+      "badge": "Flying Fish Roe Premium",
+      "badgeColor": "text-stone-700",
+      "description": "Tobiko hitam premium dengan tekstur renyah dan rasa gurih segar. Cocok untuk sushi, sashimi, rice bowl, gunkan, dan salad. Simpan dalam freezer.",
+      "size": "500GR",
+      "ribbon": "Premium Seafood"
+    },
+    {
+      "id": "hikaru-chuka-kurage",
+      "title": "Hikaru CHUKA KURAGE-JELLYFISH SEASONED SALAD-SALAD UBUR UBUR BERBUMBU",
+      "category": "hikaru",
+      "image": "https://res.cloudinary.com/dsgb53irc/image/upload/v1776547786/nmp/products/desjgtgpswumjjx5vfkd.jpg",
+      "badge": "Hikaru",
+      "badgeColor": "text-stone-700",
+      "description": "Chuka Kurage adalah olahan salad ubur-ubur yang memiliki rasa gurih, segar dan sedikit manis, dengan tekstur crunchy & kenyal.",
+      "size": "1 KG"
+    },
+    {
+      "id": "hikaru-chuka-idako",
+      "title": "Hikaru CHUKA IDAKO-BABY OCTOPUS-GURITA BERBUMBU-",
+      "category": "hikaru",
+      "image": "https://res.cloudinary.com/dsgb53irc/image/upload/v1776547933/nmp/products/yfsgwqpshitoj9nvafml.jpg",
+      "badge": "Hikaru",
+      "badgeColor": "text-emerald-600",
+      "description": "Chuka Idako adalah olahan gurita kecil (baby octopus) khas Jepang yang dimasak dengan bumbu khas manis-gurih. ",
+      "size": "2 KG"
+    },
+    {
+      "id": "hikaru-chuka-wakame",
+      "title": "Hikaru CHUKA WAKAME-SEAWEED SALAD-RUMPUT LAUT",
+      "category": "hikaru",
+      "image": "https://res.cloudinary.com/dsgb53irc/image/upload/v1776547997/nmp/products/y4n8aa9uhv2ohwrhuqso.jpg",
+      "badge": "Hikaru",
+      "badgeColor": "text-emerald-600",
+      "description": "Chuka Wakame merupakan olahan rumput laut yang memiliki rasa gurih, segar, sedikit manis dengan Teksturnya kenyal.",
+      "size": "1 KG"
     }
   ],
   "partners": [
@@ -215,11 +290,6 @@
       "logo": "/partners/total-buah.png"
     },
     {
-      "name": "Freshko",
-      "sector": "Fresh Food",
-      "logo": "/partners/freshko.png"
-    },
-    {
       "name": "Food Max",
       "sector": "Food Retailer",
       "logo": "/partners/food-max.png"
@@ -295,11 +365,6 @@
       "logo": "/partners/fukaya.jpg"
     },
     {
-      "name": "Jakarta Arita",
-      "sector": "Japanese Restaurant",
-      "logo": "/partners/jakarta-arita.png"
-    },
-    {
       "name": "Mu Gung Hwa",
       "sector": "Korean Restaurant",
       "logo": "/partners/mu-gung-hwa.png"
@@ -310,20 +375,40 @@
       "logo": "/partners/mujigae.png"
     },
     {
+      "name": "Makishi",
+      "sector": "Restaurant Partner",
+      "logo": "/partners/makishi.svg"
+    },
+    {
+      "name": "Batari",
+      "sector": "Restaurant Partner",
+      "logo": "/partners/batari.svg"
+    },
+    {
+      "name": "111 Resto",
+      "sector": "Restaurant Partner",
+      "logo": "/partners/111-resto.svg"
+    },
+    {
+      "name": "Philip",
+      "sector": "Restaurant Partner",
+      "logo": "/partners/philip.svg"
+    },
+    {
       "name": "Karubi Maru",
       "sector": "Beef Specialist",
       "logo": "/partners/karubi-maru.png"
     },
     {
       "name": "Nakajima Suisan",
-      "sector": "Seafood Supplier",
+      "sector": "Japanese Deli",
       "logo": "/partners/nakajima-suisan.png"
     }
   ],
   "home": {
     "hero": {
       "badge": "",
-      "titleMain": "Kyohikari & Hikaru",
+      "titleMain": "KYOHIKARI&Hikaru",
       "titleSub": "Certified Quality Since 2020",
       "subheading": "Partner terpercaya untuk procurement beras Japonica premium",
       "description": "Melayani hotel chains, restaurant groups, dan modern retail dengan standar QC internasional, logistik nasional, dan konsultasi gratis."
@@ -351,10 +436,12 @@
       "title": "Proses Kami Menjaga Kualitas",
       "description": "Lihat langsung bagaimana setiap butir beras Kyohikari diproses dengan standar internasional - dari pemilihan padi hingga pengemasan final.",
       "videoUrls": [
-        "/Vidio produk hikaru.mp4",
-        "/Vidio produk kyohikari.mp4"
-      ]
+        "/Vidio/Vidio produk hikaru.mp4",
+        "/Vidio/Vidio produk kyohikari.mp4",
+        "https://res.cloudinary.com/dsgb53irc/video/upload/v1776868400/nmp/videos/i3p13ez1q4fhedtqyz9c.mp4"
+      ],
+      "videoLayout": "alternate"
     }
   },
-  "updatedAt": "2026-04-14T15:57:11.559Z"
+  "updatedAt": "2026-04-22T14:33:27.764Z"
 }

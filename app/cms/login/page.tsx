@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export default function CmsLoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState("Admin");
-  const [password, setPassword] = useState("admin123");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -25,14 +25,14 @@ export default function CmsLoginPage() {
 
       if (!response.ok) {
         const payload = (await response.json()) as { message?: string };
-        setError(payload.message ?? "Login gagal.");
+        setError(payload.message ?? "Login failed.");
         return;
       }
 
       router.push("/cms");
       router.refresh();
     } catch {
-      setError("Terjadi kendala jaringan. Coba lagi.");
+      setError("A network error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -44,9 +44,9 @@ export default function CmsLoginPage() {
         <p className="text-xs font-black uppercase tracking-[0.3em] text-emerald-700">
           CMS Access
         </p>
-        <h1 className="mt-2 text-3xl font-black text-emerald-950">Login Admin</h1>
+        <h1 className="mt-2 text-3xl font-black text-emerald-950">Admin Login</h1>
         <p className="mt-3 text-sm text-stone-600">
-          Masuk ke panel CMS untuk edit data produk dan mitra.
+          Sign in to the CMS panel to edit product and partner data.
         </p>
 
         <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
@@ -86,14 +86,14 @@ export default function CmsLoginPage() {
             disabled={loading}
             className="w-full rounded-2xl bg-emerald-950 px-4 py-3 text-sm font-bold uppercase tracking-[0.2em] text-white transition hover:bg-emerald-900 disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {loading ? "Memproses..." : "Masuk CMS"}
+            {loading ? "Processing..." : "Sign In to CMS"}
           </button>
 
           <Link
             href="/home"
             className="block w-full rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.2em] text-emerald-900 transition hover:bg-emerald-50"
           >
-            Kembali Ke Website
+            Back to Website
           </Link>
         </form>
       </div>
