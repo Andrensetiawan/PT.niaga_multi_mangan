@@ -71,15 +71,6 @@ export default function Footer() {
         </div>
 
         <div>
-          <Link
-            href="/cms/login"
-            className="inline-flex rounded-full border border-emerald-200/40 px-5 py-2.5 text-[13px] font-semibold text-emerald-100 transition hover:bg-white/10 hover:text-white"
-          >
-            CMS Login
-          </Link>
-        </div>
-
-        <div>
           <div className="text-sm text-emerald-200">
             <p>{t.legal}</p>
             <p className="mt-2">&copy; AFD Corp 2026</p>

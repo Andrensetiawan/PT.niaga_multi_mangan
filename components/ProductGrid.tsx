@@ -111,8 +111,8 @@ export default function ProductGrid({ products, filters }: ProductGridProps) {
               
               {/* B2B Action Buttons */}
               <div className="space-y-3">
-                <div className="flex items-center justify-between border-t border-stone-100 pt-4">
-                  <span className="text-xs font-black uppercase tracking-[0.4em] text-emerald-900">
+                <div className="flex justify-center border-t border-stone-100 pt-4">
+                  <span className="text-xs font-black uppercase tracking-[0.4em] text-emerald-900 text-center">
                     {product.size}
                   </span>
                 </div>
