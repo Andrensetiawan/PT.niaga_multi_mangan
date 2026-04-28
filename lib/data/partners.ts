@@ -45,10 +45,10 @@ export const partners: Partner[] = [
   // Korean & Other
   { name: "Mu Gung Hwa", sector: "Korean Restaurant", logo: "/partners/mu-gung-hwa.png" },
   { name: "Mujigae", sector: "Casual Korean", logo: "/partners/mujigae.png" },
-  { name: "Makishi", sector: "Restaurant Partner", logo: "/partners/makishi.svg" },
-  { name: "Batari", sector: "Restaurant Partner", logo: "/partners/batari.svg" },
-  { name: "111 Resto", sector: "Restaurant Partner", logo: "/partners/111-resto.svg" },
-  { name: "Philip", sector: "Restaurant Partner", logo: "/partners/philip.svg" },
+  { name: "Makishi", sector: "Restaurant Partner", logo: "/partners/Makishi.jpg" },
+  { name: "Batari", sector: "Restaurant Partner", logo: "/partners/batari.jpg" },
+  { name: "111 Resto", sector: "Restaurant Partner", logo: "/partners/111-resto.jpg" },
+  { name: "Philip", sector: "Restaurant Partner", logo: "/partners/Philip.png" },
   
   // Specialty Suppliers
   { name: "Karubi Maru", sector: "Beef Specialist", logo: "/partners/karubi-maru.png" },
