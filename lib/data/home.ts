@@ -50,7 +50,7 @@ export const DEFAULT_HOME_CONTENT: HomePageContent = {
     title: "How We Maintain Quality",
     description:
       "See how every Kyohikari grain is processed to international standards - from paddy selection to final packaging.",
-    videoUrls: ["/Vidio/Vidio produk hikaru.mp4", "/Vidio/Vidio produk kyohikari.mp4"],
-    videoLayout: "2",
+    videoUrls: ["/Vidio/Vidio produk hikaru.mp4", "/Vidio/Vidio produk kyohikari.mp4", "/Vidio/Behind the quality- vidio proses menjaga kualitas.mp4"],
+    videoLayout: "alternate",
   },
 };

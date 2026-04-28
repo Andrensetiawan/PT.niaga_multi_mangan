@@ -42,8 +42,8 @@ export const DEFAULT_ABOUT_CONTENT: AboutPageContent = {
       "In the early stage, the company supplied rice to supermarkets and later expanded to HORECA and Japanese restaurants requiring high quality standards.",
     ),
     localized(
-      "PT Niaga Multi Pangan juga merupakan distributor tunggal pemegang hak merek untuk beras khusus KYOHIKARI serta produk makanan Jepang premium dengan merek HIKARU.",
-      "PT Niaga Multi Pangan is also the exclusive rights holder and distributor for KYOHIKARI specialty rice and premium Japanese food products under HIKARU.",
+      "PT Niaga Multi Pangan juga merupakan distributor tunggal pemegang hak merek untuk beras khusus KYOHIKARI serta produk makanan Jepang premium dengan merek HIKARU. Dengan dukungan tim profesional, etika kerja yang kuat, serta komitmen terhadap kualitas dan keunggulan produk, perusahaan terus berupaya memberikan pelayanan terbaik demi tercapainya kepuasan pelanggan.",
+      "PT Niaga Multi Pangan is also the exclusive rights holder and distributor for KYOHIKARI specialty rice and premium Japanese food products under HIKARU. With professional team support, strong work ethics, and commitment to product quality and excellence, the company continuously strives to deliver the best service for customer satisfaction.",
     ),
   ],
   award: localized(
@@ -52,7 +52,7 @@ export const DEFAULT_ABOUT_CONTENT: AboutPageContent = {
   ),
   vision: localized("Visi", "Vision"),
   visionTitle: localized(
-    "Mendukung Program Ketahanan dan Kedaulatan Pangan Nasional",
+    "mendukung program ketahanan dan kedaulatan pangan nasional",
     "Supporting National Food Security and Sovereignty",
   ),
   visionDesc: localized(
@@ -60,11 +60,14 @@ export const DEFAULT_ABOUT_CONTENT: AboutPageContent = {
     "We are committed to playing a key role in maintaining stable access to quality food supply in Indonesia.",
   ),
   mission: localized("Misi", "Mission"),
-  missionTitle: localized("Fokus pada Kualitas dan Efisiensi", "Focused on Quality and Efficiency"),
+  missionTitle: localized(
+    "berfokus pada penyediaan produk berkualitas, efisiensi rantai pasok dan peningkatan nilai tambah",
+    "Focused on quality products, supply-chain efficiency, and added value",
+  ),
   missionList: [
-    localized("Penyediaan produk berkualitas tinggi", "Deliver high-quality food products"),
-    localized("Efisiensi rantai pasok dari hulu ke hilir", "Optimize end-to-end supply-chain efficiency"),
-    localized("Peningkatan nilai tambah untuk mitra dan pelanggan", "Create added value for partners and customers"),
+    localized("Penyediaan produk berkualitas", "Deliver quality products"),
+    localized("Efisiensi rantai pasok", "Optimize supply-chain efficiency"),
+    localized("Peningkatan nilai tambah", "Create added value"),
   ],
   machineBadge: localized("Alat & Mesin", "Equipment & Machines"),
   machineTitle: localized("Infrastruktur Produksi PT Niaga Multi Pangan", "PT Niaga Multi Pangan Production Infrastructure"),

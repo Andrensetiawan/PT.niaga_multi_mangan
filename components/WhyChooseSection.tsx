@@ -60,7 +60,7 @@ const qualityControlMedia = {
     {
       label: "Optical sorting",
       type: "video",
-      src: "/Vidio/Behind the quality- vidio proses menjaga kualitas.mp4",
+      src: "/Optical sorting.mp4",
       alt: "Proses optical sorting beras di mesin sorter",
     },
     {
@@ -80,7 +80,7 @@ const qualityControlMedia = {
     {
       label: "Optical sorting",
       type: "video",
-      src: "/Vidio/Behind the quality- vidio proses menjaga kualitas.mp4",
+      src: "/Optical sorting.mp4",
       alt: "Rice optical sorting process in sorting machine",
     },
     {

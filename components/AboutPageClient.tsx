@@ -7,7 +7,7 @@ import type { AboutPageContent } from "../lib/data/about";
 import { resolveLocalizedText } from "../lib/localized";
 
 const primaryImage = "/gallery/facilities-warehouse/Foto gudang terbaru.jpeg";
-const secondaryImage = "/team-management.jpg";
+const secondaryImage = "/gallery/quality-control/machine-color-sorter.png";
 
 type Props = {
   content: AboutPageContent;
@@ -16,7 +16,6 @@ type Props = {
 export default function AboutPageClient({ content }: Props) {
   const { locale } = useSiteLocale();
 
-  const missionList = content.missionList.map((item) => resolveLocalizedText(item, locale));
   const qcStages = [
     {
       title: "Incoming Raw Check",
@@ -94,7 +93,14 @@ export default function AboutPageClient({ content }: Props) {
               </div>
             </div>
             <div className="relative hidden h-96 overflow-hidden rounded-[2rem] shadow-2xl lg:block">
-              <Image src={secondaryImage} alt="Harvest" fill sizes="(max-width: 1024px) 100vw, 25vw" className="object-cover" />
+              <video
+                src="/Optical sorting.mp4"
+                className="h-full w-full object-cover animate-fade-in"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
             </div>
           </div>
         </div>
@@ -123,9 +129,6 @@ export default function AboutPageClient({ content }: Props) {
               <h3 className="serif text-3xl font-bold leading-tight text-emerald-950">
                 {resolveLocalizedText(content.visionTitle, locale)}
               </h3>
-              <p className="mt-6 text-base leading-relaxed text-stone-700">
-                {resolveLocalizedText(content.visionDesc, locale)}
-              </p>
             </div>
             <div className="rounded-[2rem] border border-stone-200 bg-white p-10 shadow-xl">
               <div className="relative mb-6 inline-flex items-center justify-center overflow-hidden rounded-xl border border-emerald-200 px-4 py-2">
@@ -137,14 +140,6 @@ export default function AboutPageClient({ content }: Props) {
               <h3 className="serif text-3xl font-bold leading-tight text-emerald-950">
                 {resolveLocalizedText(content.missionTitle, locale)}
               </h3>
-              <ul className="mt-6 space-y-4">
-                {missionList.map((item) => (
-                  <li key={item} className="flex gap-3 text-base text-stone-700">
-                    <span className="mt-1.5 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-emerald-700" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>

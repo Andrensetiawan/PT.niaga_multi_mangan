@@ -41,10 +41,6 @@ const galleryCategories = [
     title: "Customer Warehouse Visit",
     description: "Documentation of customer warehouse visits and partnership activities",
     images: [
-      { src: "/gallery/customer-warehouse-visit/customer-shigeru.jpg", alt: "Photo with Shigeru customer" },
-      { src: "/gallery/customer-warehouse-visit/customer-sushi-tei.jpg", alt: "Photo with Sushi Tei customer" },
-      { src: "/gallery/customer-warehouse-visit/customer-marugame.jpg", alt: "Photo with Marugame customer" },
-      { src: "/gallery/customer-warehouse-visit/foto-bersama-dinas-pangan.jpg", alt: "Photo with food agency" },
       { src: "/gallery/customer-warehouse-visit/Customer warehouse visit - dinas pangan.jpg", alt: "Customer warehouse visit with dinas pangan" },
       { src: "/gallery/customer-warehouse-visit/Customer warehouse visit- marugame.jpg", alt: "Customer warehouse visit with Marugame" },
       { src: "/gallery/customer-warehouse-visit/Customer warehouse wisit-sushi tei. Jpg.jpg", alt: "Customer warehouse visit with Sushi Tei" },

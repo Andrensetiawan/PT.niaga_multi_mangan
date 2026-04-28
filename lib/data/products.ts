@@ -22,8 +22,8 @@ export type ProductInquiryLocale = "id" | "en";
 
 export const PRODUCT_FILTERS = [
   { label: "All Products", value: "all" },
-  { label: "Kyohikari", value: "kyohikari", logo: "/logo/logo%20kyohikari.jpeg" },
-  { label: "Hikaru", value: "hikaru", logo: "/logo/logo%20hikaru.jpeg" },
+  { label: "Kyohikari", value: "kyohikari", logo: "/logo/logo-kyohikari.png" },
+  { label: "Hikaru", value: "hikaru", logo: "/logo/logo-hikaru.png" },
 ] as const satisfies readonly ProductFilter[];
 
 export const PRODUCTS: Product[] = [

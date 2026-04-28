@@ -172,21 +172,21 @@ export default function HomePageClient({ content, organizationSchema, localBusin
           <div className="mx-auto -mt-4 mb-4 flex max-w-3xl flex-col items-center justify-center gap-2 text-emerald-950 sm:-mt-6 sm:flex-row sm:gap-4 lg:-mt-8 lg:gap-6">
             <div className="flex flex-col items-center justify-center sm:translate-x-[-35px] lg:translate-x-[-35px]">
               <Image
-                src="/logo/logo%20kyohikari.png"
+                src="/logo/logo-kyohikari.png"
                 alt="Logo Kyohikari"
                 width={560}
                 height={374}
-                className="h-48 w-auto object-contain drop-shadow-[0_10px_28px_rgba(0,0,0,0.2)] sm:h-56 md:h-64"
+                className="h-48 w-auto object-contain drop-shadow-[0_10px_28px_rgba(0,0,0,0.2)] sm:h-56 md:h-64 rounded-2xl"
                 priority
               />
             </div>
             <div className="flex flex-col items-center justify-center sm:translate-x-[35px] lg:translate-x-[35px]">
               <Image
-                src="/logo/logo%20hikaru.png"
+                src="/logo/logo-hikaru.png"
                 alt="Logo Hikaru"
                 width={560}
                 height={374}
-                className="h-48 w-auto object-contain drop-shadow-[0_10px_28px_rgba(0,0,0,0.2)] sm:h-56 md:h-64"
+                className="h-48 w-auto object-contain drop-shadow-[0_10px_28px_rgba(0,0,0,0.2)] sm:h-56 md:h-64 rounded-2xl"
               />
             </div>
           </div>
